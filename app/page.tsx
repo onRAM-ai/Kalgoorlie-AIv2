@@ -192,7 +192,7 @@ export default function Home() {
                 <div className="aspect-square rounded-2xl overflow-hidden bg-gray-900 border border-primary/10 p-8">
                   {/* Updated Image Reference */}
                   <Image
-                    src="/logos/Marno-Brits.jpeg"
+                    src="/Marno-Brits.jpeg"
                     alt="Marno Brits"
                     width={400}
                     height={400}
