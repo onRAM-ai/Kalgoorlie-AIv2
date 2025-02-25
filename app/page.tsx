@@ -10,7 +10,7 @@ export default function Home() {
   const services = [
     {
       title: "Custom Web Apps",
-      description: "Build specialised web applications tailored to your specific business needs",
+      description: "Build specialised web applications tailored to your specific business needs.",
       icon: <i className="fas fa-code" aria-hidden="true" />,
       features: [
         "Designed for your unique business needs",
