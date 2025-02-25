@@ -4,6 +4,7 @@ import ProcessTimeline from './components/ProcessTimeline';
 import Footer from './components/Footer';
 import FAQItem from './components/FAQItem';
 import ContactForm from './components/ContactForm';
+import Image from 'next/image';
 
 export default function Home() {
   const services = [
@@ -188,11 +189,16 @@ export default function Home() {
                 </div>
               </div>
               <div className="relative">
-                <div className="aspect-square rounded-2xl overflow-hidden bg-[#1A1F2C] border border-primary/10 p-8">
-                  <div className="w-full h-full rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                    <i className="fas fa-user-circle text-8xl text-primary/30"></i>
-                  </div>
-                </div>
+  <div className="aspect-square rounded-2xl overflow-hidden bg-gray-900 border border-primary/10 p-8"
+    {/* Updated Image Reference */}
+    <Image
+      src="/logos/Marno-Brits.jpeg"
+      alt="Marno Brits"
+      width={400}
+      height={400}
+      className="rounded-xl object-cover"
+    />
+  </div>
                 {/* Experience highlights */}
                 <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-[#1A1F2C] border border-primary/10 rounded-full px-8 py-3">
                   <div className="text-center">
