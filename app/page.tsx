@@ -19,7 +19,7 @@ export default function Home() {
       ]
     },
     {
-      title: "AI Automation",
+      title: "Automation",
       description: "Automate repetitive tasks and free up valuable time. We help businesses implement smart, AI-driven automations to improve efficiency and reduce operational cost.",
       icon: <i className="fas fa-gears" aria-hidden="true" />,
       features: [
