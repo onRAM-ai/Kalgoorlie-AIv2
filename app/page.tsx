@@ -25,7 +25,7 @@ export default function Home() {
       features: [
         "Cut down on time-consuming admin tasks",
         "Ensure smooth, error-free workflows",
-        "Focus on what really matters—your business"
+        "Focus on what really matters"
       ]
     },
     {
@@ -105,7 +105,7 @@ export default function Home() {
                 <span className="block">with AI</span>
               </h1>
               <p className="text-xl md:text-2xl text-text-secondary mb-8 max-w-3xl mx-auto">
-                Your Kalgoorlie local partner in AI Workshops, AI Agents, and Workflow Automation
+                Your Kalgoorlie local partner in AI & IT Workshops, Workflow Automation, and Custom Web Applications
               </p>
               
               {/* Lead Magnet Card */}
@@ -167,10 +167,10 @@ export default function Home() {
                     Technology should make work easier, not harder—but when you're constantly putting out fires, who has time to explore better ways of doing things? That's where I come in.
                   </p>
                   <p>
-                    I help businesses and business professionals gain back their time and take control of how they work. Through education & automation, so that you can work smarter, not harder. Because once you see what's possible, everything changes.
+                    I help businesses and business professionals buy back their time and take control of how they work, through education & automation, so that you can work smarter, not harder. Once you see what's possible, everything changes.
                   </p>
                   <p>
-                    Let's make technology work for you, not against you.
+                    Let's make technology work for you.
                   </p>
                 </div>
                 <div className="mt-8 flex items-center gap-6">
