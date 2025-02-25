@@ -1,0 +1,273 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #42D4B3;
+  --secondary: #7CC2FF;
+  --background: #151922;
+  --background-secondary: #1B2937;
+  --text: #FFFFFF;
+  --text-secondary: #C8C8C8;
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem; /* Add consistent scroll padding for all anchor links */
+}
+
+body {
+  color: var(--text);
+  background: var(--background);
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    linear-gradient(165deg, 
+      var(--background) 0%,
+      color-mix(in srgb, var(--background-secondary) 98%, var(--primary) 2%) 100%
+    );
+  z-index: -2;
+  transition: background 0.3s ease;
+}
+
+/* Noise Texture */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.02;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* 3D Flip Card Styles */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 2px;
+  opacity: 0.3;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--primary) 80%, white);
+}
+
+/* Section Styles */
+section {
+  position: relative;
+  overflow: hidden;
+}
+
+section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--x, 50%) var(--y, 50%),
+    rgba(var(--primary-rgb), 0.03),
+    transparent 50%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+
+section:hover::before {
+  opacity: 1;
+}
+
+/* Update section scroll margin for consistency */
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
+/* Gradient Text */
+.text-gradient {
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Floating Animation */
+.floating-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.1;
+  background: radial-gradient(circle at center, var(--secondary), var(--primary));
+  animation: float 20s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(50px, 50px); }
+  50% { transform: translate(0, 100px); }
+  75% { transform: translate(-50px, 50px); }
+}
+
+/* Navigation */
+.nav-link {
+  position: relative;
+  color: var(--text);
+  transition: all 0.3s ease;
+  opacity: 0.7;
+}
+
+.nav-link:hover {
+  opacity: 1;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 50%;
+  background: linear-gradient(to right, var(--secondary), var(--primary));
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--primary);
+  color: var(--text);
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-primary:hover {
+  filter: brightness(1.1);
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px -10px var(--primary);
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 2px solid var(--text);
+  color: var(--text);
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid var(--primary);
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Gradient Pulse */
+.gradient-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Card Hover Effects */
+.hover-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px -10px rgba(var(--primary-rgb), 0.2);
+}
+
+/* Service Card Glow */
+.service-card-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, var(--primary), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.service-card-glow:hover {
+  opacity: 0.05;
+}
+
+/* Icon Animation */
+.animate-icon {
+  transition: transform 0.3s ease;
+}
+
+.animate-icon:hover {
+  transform: scale(1.2);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  :root {
+    --primary: #30A88C;
+    --text-secondary: #E0E0E0;
+  }
+}
