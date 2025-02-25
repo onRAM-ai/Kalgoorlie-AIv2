@@ -23,7 +23,7 @@ export default function Questionnaire() {
   const options = {
     currentAI: [
       "Newcomer - We don't use any AI or automation tools",
-      "Early Adopter - We sometimes use ChatGPT and email rules",
+      "Early Adapter - We sometimes use ChatGPT and email rules",
       "Innovator - We use a combination of LLM's and automation tools"
     ],
     computerUsage: [
