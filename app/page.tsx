@@ -43,7 +43,7 @@ export default function Home() {
   const principles = [
     {
       title: "Passion",
-      description: "Our passion is to enable the people and organisations of Kalgoorlie to embrace the future of technology, we believe that technology should empower, not overwhelm.",
+      description: "Our passion is to enable the people and organisations of Kalgoorlie to embrace the future of technology.",
       icon: <i className="fas fa-heart" aria-hidden="true" />,
       features: []
     },
@@ -55,7 +55,7 @@ export default function Home() {
     },
     {
       title: "Commit",
-      description: "AI doesn't have to be daunting. We are here to help you work smarter, not harder—whether you're a small business owner, an entrepreneur, or someone curious about the future. Together, let's build solutions that empower you to do more with less.",
+      description: "Our committment is to bridge the gap, AI doesn't have to be daunting. We are here to help you work smarter, not harder—whether you're a small business owner, an entrepreneur, or someone curious about the future. Together, let's build solutions that empower you to do more with less.",
       icon: <i className="fas fa-handshake" aria-hidden="true" />,
       features: []
     }
