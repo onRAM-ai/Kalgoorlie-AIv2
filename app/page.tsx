@@ -64,11 +64,11 @@ export default function Home() {
   const faqs = [
     {
       question: "How do I know if I need automation or AI?",
-      answer: "If you or your team spend too much time on repetitive tasks, constantly feel behind on admin work, or think \"there has to be a better way\", then I am confident I can help you win back your time."
+      answer: "If you or your team spend too much time on repetitive tasks, constantly feel behind on admin work, or think \"there has to be a better way\", then Kalgoorlie AI is here to help, with minor adjustments we can help you buy back your time."
     },
     {
       question: "What types of businesses do you help?",
-      answer: "My focus is small-to-medium businesses and business professionals who spend at least 5 hours a day using a computer."
+      answer: "Our focus is small-to-medium businesses and business professionals who spend at least 5 hours a day using a computer."
     },
     {
       question: "What is a custom web app, and why would I need one?",
@@ -76,7 +76,7 @@ export default function Home() {
     },
     {
       question: "How do I know which service is right for me?",
-      answer: "Book a free 15-minute consultation where I'll assess your needs and recommend the best solution. No commitment—just clarity."
+      answer: "Book a free 15-minute consultation where we assess your needs and recommend the best solution. No commitment—just clarity."
     },
     {
       question: "Do you support Apple products",
