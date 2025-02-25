@@ -189,14 +189,15 @@ export default function Home() {
                 </div>
               </div>
               <div className="relative">
-                <div className="aspect-square rounded-2xl overflow-hidden bg-gray-900 border border-primary/10 p-8">
+                <div className="aspect-square rounded-2xl overflow-hidden bg-gray-900 border border-primary/10">
                   {/* Updated Image Reference */}
                   <Image
                     src="/Marno-Brits.jpeg"
                     alt="Marno Brits"
-                    width={400}
-                    height={400}
-                    className="rounded-xl object-cover"
+                    width={500}
+                    height={500}
+                    className="w-full h-full object-cover"
+                    priority
                   />
                 </div>
                 {/* Experience highlights */}
