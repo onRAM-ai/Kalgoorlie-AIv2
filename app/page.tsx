@@ -9,13 +9,13 @@ import Image from 'next/image';
 export default function Home() {
   const services = [
     {
-      title: "Custom Web Apps",
-      description: "Build specialised web applications tailored to your specific business needs.",
-      icon: <i className="fas fa-code" aria-hidden="true" />,
+      title: "AI Agents",
+      description: "Build specialised AI Agents tailored to your specific business needs.",
+      icon: <i className="fas fa-robot" aria-hidden="true" />,
       features: [
-        "Designed for your unique business needs",
-        "Eliminates manual work & improves efficiency",
-        "No unnecessary features—just what you need"
+        "Customer Service Agents",
+        "Email Assistant",
+        "Email Assistant"
       ]
     },
     {
