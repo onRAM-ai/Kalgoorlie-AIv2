@@ -29,10 +29,10 @@ export default function ContactForm() {
   const [error, setError] = useState<FormError | null>(null);
 
   const services = [
-    "Custom Web App",
+    "AI Agents",
     "Workflow Automation",
-    "AI Workshop/Training"
-    "IT Workshop/Training"
+    "AI Workshop/Training",
+    "IT Workshop/Training",
   ];
 
   const handleSubmit = async (e: React.FormEvent) => {
