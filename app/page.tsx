@@ -13,9 +13,9 @@ export default function Home() {
       description: "Build specialised AI Agents tailored to your specific business needs.",
       icon: <i className="fas fa-robot" aria-hidden="true" />,
       features: [
-        "Customer Service Agents",
+        "Customer Service",
         "Email Assistant",
-        "Email Assistant"
+        "Research Assistant"
       ]
     },
     {
