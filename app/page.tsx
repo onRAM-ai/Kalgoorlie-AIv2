@@ -219,7 +219,7 @@ export default function Home() {
               How We Work
             </h2>
             <p className="text-center text-text-secondary mb-12 max-w-2xl mx-auto">
-              Our proven process ensures successful AI implementation and measurable outcomes
+              Our holistic appraoch ensures successful implementatio with measurable outcomes.
             </p>
             <ProcessTimeline />
           </div>
