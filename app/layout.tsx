@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import Script from 'next/script';
+import Script from 'next/script'; // ✅ Note: We already have this import
 import { ThemeProvider } from './hooks/useTheme';
 
 export const metadata: Metadata = {
@@ -10,7 +10,15 @@ export const metadata: Metadata = {
     template: '%s | Kalgoorlie AI'
   },
   description: 'Transform your business with AI solutions. Expert AI consulting, custom AI agents, workflow automation, and AI training workshops in Kalgoorlie.',
-  keywords: ['AI consulting', 'artificial intelligence', 'machine learning', 'business automation', 'AI training', 'Kalgoorlie', 'Western Australia'],
+  keywords: [
+    'AI consulting',
+    'artificial intelligence',
+    'machine learning',
+    'business automation',
+    'AI training',
+    'Kalgoorlie',
+    'Western Australia'
+  ],
   authors: [{ name: 'Kalgoorlie AI' }],
   creator: 'Kalgoorlie AI',
   publisher: 'Kalgoorlie AI',
@@ -53,7 +61,8 @@ export const metadata: Metadata = {
     url: 'https://kalgoorlie.ai',
     siteName: 'Kalgoorlie AI',
     title: 'Kalgoorlie AI - Empowering Your Business with AI',
-    description: 'Transform your business with AI solutions. Expert AI consulting, custom AI agents, workflow automation, and AI training workshops in Kalgoorlie.',
+    description:
+      'Transform your business with AI solutions. Expert AI consulting, custom AI agents, workflow automation, and AI training workshops in Kalgoorlie.',
     images: [
       {
         url: '/og-image.jpg',
@@ -66,7 +75,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Kalgoorlie AI - Empowering Your Business with AI',
-    description: 'Transform your business with AI solutions. Expert AI consulting, custom AI agents, workflow automation, and AI training workshops in Kalgoorlie.',
+    description:
+      'Transform your business with AI solutions. Expert AI consulting, custom AI agents, workflow automation, and AI training workshops in Kalgoorlie.',
     images: ['/og-image.jpg'],
     creator: '@kalgoorlieai',
   },
@@ -86,6 +96,30 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* 
+          ─────────────────────────────────────────────────────────────────
+          ✅ GOOGLE ANALYTICS (GA4) TRACKING 
+          ─────────────────────────────────────────────────────────────────
+        */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-CCT34W9N19"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-CCT34W9N19', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
+
         {/* Google Fonts - Manual Load */}
         <link
           rel="preconnect"
@@ -103,9 +137,9 @@ export default function RootLayout({
         />
 
         {/* FontAwesome */}
-        <link 
-          rel="stylesheet" 
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" 
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
@@ -120,30 +154,29 @@ export default function RootLayout({
               "name": "Kalgoorlie AI",
               "url": "https://kalgoorlie.ai",
               "logo": "https://kalgoorlie.ai/icon.svg",
-              "description": "Transform your business with AI solutions. Expert AI consulting, custom AI agents, workflow automation, and AI training workshops in Kalgoorlie.",
+              "description":
+                "Transform your business with AI solutions. Expert AI consulting, custom AI agents, workflow automation, and AI training workshops in Kalgoorlie.",
               "address": {
                 "@type": "PostalAddress",
                 "addressLocality": "Kalgoorlie",
                 "addressRegion": "WA",
-                "addressCountry": "AU"
+                "addressCountry": "AU",
               },
               "contactPoint": {
                 "@type": "ContactPoint",
                 "contactType": "customer service",
-                "email": "contact@kalgoorlie.ai"
+                "email": "contact@kalgoorlie.ai",
               },
               "sameAs": [
                 "https://twitter.com/kalgoorlieai",
-                "https://linkedin.com/company/kalgoorlie-ai"
-              ]
-            })
+                "https://linkedin.com/company/kalgoorlie-ai",
+              ],
+            }),
           }}
         />
       </head>
       <body>
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );
