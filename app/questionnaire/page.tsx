@@ -70,7 +70,7 @@ export default function Questionnaire() {
 
       // If successful and Calendly button was clicked, redirect to Calendly
       if (isCalendly) {
-        window.location.href = 'https://calendly.com/marno-adaptiveit/30min';
+        window.location.href = 'https://calendly.com/kalgoorie-ai/30min';
       } else {
         // Clear form and show success message
         setFormData({
