@@ -219,7 +219,7 @@ export default function Home() {
               How We Work
             </h2>
             <p className="text-center text-text-secondary mb-12 max-w-2xl mx-auto">
-              Our holistic appraoch ensures successful implementatio with measurable outcomes.
+              Our holistic approach ensures successful implementatio with measurable outcomes.
             </p>
             <ProcessTimeline />
           </div>
