@@ -10,7 +10,7 @@ export default function Home() {
   const services = [
     {
       title: "AI Agents",
-      description: "Build specialised AI Agents tailored to your specific business needs.",
+      description: "Build custom AI Agents to do specific tasks within your business, saving you time, money and resources.",
       icon: <i className="fas fa-robot" aria-hidden="true" />,
       features: [
         "Customer Service",
@@ -167,7 +167,7 @@ export default function Home() {
                     Technology should make work easier, not harder—but when you're constantly putting out fires, who has time to explore better ways of doing things? That's where I come in.
                   </p>
                   <p>
-                    I help businesses and business professionals buy back their time and take control of how they work, through education & automation, so that you can work smarter, not harder. Once you see what's possible, everything changes.
+                    I help businesses streamline their operations so that they save time, money and resources, using the power of Artificial Intelligence.
                   </p>
                   <p>
                     Let's make technology work for you.
