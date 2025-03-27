@@ -105,7 +105,7 @@ export default function Home() {
                 <span className="block">with AI</span>
               </h1>
               <p className="text-xl md:text-2xl text-text-secondary mb-8 max-w-3xl mx-auto">
-                Your Kalgoorlie local partner in AI & IT Workshops, Workflow Automation, and Custom Web Applications
+                Your Kalgoorlie local partner in Digital Literacy Workshops, Workflow Automation, and AI Agents
               </p>
               
               {/* Lead Magnet Card */}
