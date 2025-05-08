@@ -31,6 +31,7 @@ export const metadata: Metadata = {
     icon: [
       { url: '/Kalgoorlie-AI.ico', sizes: 'any' },
       { url: '/kalgoorlie-ai-favicon.png', sizes: '512x512', type: 'image/png' }
+    ]
   },
   manifest: '/site.webmanifest',
   viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
