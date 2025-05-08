@@ -29,17 +29,8 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/icon.svg', type: 'image/svg+xml' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' }
-    ],
-    apple: [
-      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }
-    ],
-    other: [
-      { rel: 'mask-icon', url: '/safari-pinned-tab.svg', color: '#42D4B3' }
-    ]
+      { url: '/Kalgoorlie-AI.ico', sizes: 'any' },
+      { url: '/kalgoorlie-ai-favicon.png', sizes: '512x512', type: 'image/png' }
   },
   manifest: '/site.webmanifest',
   viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
