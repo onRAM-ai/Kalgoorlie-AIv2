@@ -6,7 +6,7 @@ import { ThemeProvider } from './hooks/useTheme';
 export const metadata: Metadata = {
   metadataBase: new URL('https://kalgoorlie.ai'),
   title: {
-    default: 'Kalgoorlie AI - Empowering Your Business with AI',
+    default: 'Kalgoorlie AI - Empower Your Business with AI',
     template: '%s | Kalgoorlie AI'
   },
   description: 'Transform your business with AI solutions. Expert AI consulting, custom AI agents, workflow automation, and AI training workshops in Kalgoorlie.',
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     locale: 'en_AU',
     url: 'https://kalgoorlie.ai',
     siteName: 'Kalgoorlie AI',
-    title: 'Kalgoorlie AI - Empowering Your Business with AI',
+    title: 'Kalgoorlie AI - Empower Your Business with AI',
     description:
       'Transform your business with AI solutions. Expert AI consulting, custom AI agents, workflow automation, and AI training workshops in Kalgoorlie.',
     images: [
@@ -68,13 +68,13 @@ export const metadata: Metadata = {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Kalgoorlie AI - Empowering Your Business with AI',
+        alt: 'Kalgoorlie AI - Empower Your Business with AI',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Kalgoorlie AI - Empowering Your Business with AI',
+    title: 'Kalgoorlie AI - Empower Your Business with AI',
     description:
       'Transform your business with AI solutions. Expert AI consulting, custom AI agents, workflow automation, and AI training workshops in Kalgoorlie.',
     images: ['/og-image.jpg'],
