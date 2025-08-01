@@ -154,6 +154,16 @@ export default function RootLayout({
             `,
           }}
         />
+{/* ---------- GOOGLE ADS CONVERSION (AW-16932639481) ---------- */}
+<Script
+  id="google-ads"
+  strategy="afterInteractive"
+  dangerouslySetInnerHTML={{
+    __html: `
+      gtag('config', 'AW-16932639481');
+    `,
+  }}
+/>
 
         {/* ---------- FONTS & ICONS ---------- */}
         <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
