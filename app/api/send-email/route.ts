@@ -1,13 +1,29 @@
 import { NextResponse } from 'next/server';
 import sgMail from '@sendgrid/mail';
 
-// Initialize SendGrid with API key
-sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const { name, email, company, service, message } = body;
+    const { SENDGRID_API_KEY, FROM_EMAIL, TO_EMAIL } = process.env;
+
+    // Ensure server is configured correctly
+    if (!SENDGRID_API_KEY || !FROM_EMAIL || !TO_EMAIL) {
+      console.error('Missing env vars', {
+        hasKey: !!SENDGRID_API_KEY,
+        hasFrom: !!FROM_EMAIL,
+        hasTo: !!TO_EMAIL,
+      });
+      return NextResponse.json(
+        { error: 'Email service not configured' },
+        { status: 500 }
+      );
+    }
+
+    sgMail.setApiKey(SENDGRID_API_KEY);
+
+    const { name, email, company, service, message } = await request.json();
 
     // Validate required fields
     if (!name || !email || !service || !message) {
@@ -26,10 +42,11 @@ export async function POST(request: Request) {
       );
     }
 
-    // Create email content
-    const emailContent = {
-      to: process.env.TO_EMAIL,
-      from: process.env.FROM_EMAIL || 'noreply@kalgoorlie.ai',
+    const htmlMessage = String(message).replace(/\n/g, '<br>');
+
+    await sgMail.send({
+      to: TO_EMAIL,
+      from: FROM_EMAIL, // must be a verified sender/domain in SendGrid
       replyTo: email,
       subject: `New Contact Form Submission - ${service}`,
       text: `
@@ -48,19 +65,17 @@ ${message}
 <p><strong>Email:</strong> ${email}</p>
 <p><strong>Company:</strong> ${company || 'Not provided'}</p>
 <h3>Message:</h3>
-<p>${message.replace(/\n/g, '<br>')}</p>
+<p>${htmlMessage}</p>
       `,
-    };
-
-    // Send email
-    await sgMail.send(emailContent);
+    });
 
     return NextResponse.json(
       { message: 'Email sent successfully' },
       { status: 200 }
     );
-  } catch (error) {
-    console.error('SendGrid Error:', error);
+  } catch (error: any) {
+    // Surface SendGrid error details to logs
+    console.error('SendGrid Error:', error?.response?.body || error?.message || error);
     return NextResponse.json(
       { error: 'Failed to send email' },
       { status: 500 }
