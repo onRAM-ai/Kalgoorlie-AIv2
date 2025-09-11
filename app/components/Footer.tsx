@@ -1,92 +1,15 @@
 'use client';
-import { useState, useMemo, memo } from 'react';
+import { useState } from 'react';
 import FooterLogo from './FooterLogo';
 import Link from 'next/link';
 import { supabase } from '../utils/supabase';
-import { motion } from 'framer-motion';
+import BackgroundBoxes from './BackgroundBoxes';
 
-/* ===== Interaction-driven background that reacts under content ===== */
-type Mouse = { x: number; y: number };
-function cn(...c: (string | undefined)[]) { return c.filter(Boolean).join(' '); }
-
-// Visual cell sizes that match Tailwind w-16 h-8 (≈64x32 px at 16px root)
-const CELL_W = 64;
-const CELL_H = 32;
-// Density. Reduce if perf dips.
-const ROWS = 80;
-const COLS = 60;
-// Radius for highlight around cursor
-const RADIUS = 140;
-
-const COLORS = [
-  'rgb(125 211 252)','rgb(249 168 212)','rgb(134 239 172)','rgb(253 224 71)',
-  'rgb(252 165 165)','rgb(216 180 254)','rgb(147 197 253)','rgb(165 180 252)','rgb(196 181 253)'
-];
-
-const BackgroundBoxes = memo(function BackgroundBoxes(
-  { className, mouse }: { className?: string; mouse: Mouse }
-) {
-  const rows = useMemo(() => new Array(ROWS).fill(0), []);
-  const cols = useMemo(() => new Array(COLS).fill(0), []);
-  const palette = useMemo(
-    () => Array.from({ length: ROWS * COLS }, () => COLORS[(Math.random() * COLORS.length) | 0]),
-    []
-  );
-
-  const transform =
-    'translate(-40%,-60%) skewX(-48deg) skewY(14deg) scale(0.675) rotate(0deg) translateZ(0)';
-
-  return (
-    <div
-      style={{ transform }}
-      className={cn(
-        'absolute left-1/4 p-4 -top-1/4 flex -translate-x-1/2 -translate-y-1/2 w-full h-full z-0',
-        className
-      )}
-      aria-hidden
-    >
-      {rows.map((_, i) => (
-        <div key={`r${i}`} className="flex">
-          {cols.map((_, j) => {
-            const cx = j * CELL_W + CELL_W / 2;
-            const cy = i * CELL_H + CELL_H / 2;
-            const dx = mouse.x - cx;
-            const dy = mouse.y - cy;
-            const within = dx * dx + dy * dy < RADIUS * RADIUS;
-            return (
-              <motion.div
-                key={`c${i}-${j}`}
-                className="w-16 h-8 border-r border-t border-slate-700 relative"
-                animate={{ backgroundColor: within ? palette[i * COLS + j] : 'transparent' }}
-                transition={{ duration: 0.15 }}
-              >
-                {(j % 2 === 0 && i % 2 === 0) && (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="absolute h-6 w-10 -top-[14px] -left-[22px] text-slate-700 stroke-[1px] pointer-events-none"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
-                  </svg>
-                )}
-              </motion.div>
-            );
-          })}
-        </div>
-      ))}
-    </div>
-  );
-});
-
-/* ============================== Footer ============================== */
 export default function Footer() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
-  const [mouse, setMouse] = useState<Mouse>({ x: -9999, y: -9999 });
+  const [mouse, setMouse] = useState<{ x: number; y: number }>({ x: -9999, y: -9999 });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -112,7 +35,7 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-[#121722] overflow-hidden" onMouseMove={onMove}>
-      {/* Reactive background under content */}
+      {/* Reactive background under content (external component) */}
       <BackgroundBoxes className="opacity-[0.12]" mouse={mouse} />
 
       {/* Gradient Line */}
