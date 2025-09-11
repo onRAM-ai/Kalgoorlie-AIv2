@@ -6,9 +6,9 @@ function cn(...cls: (string | undefined)[]) {
   return cls.filter(Boolean).join(" ");
 }
 
-// Tailwind w-16 h-8 => 64×32 px at 16px root
-const CELL_W = 64;
-const CELL_H = 32;
+// 50% smaller: Tailwind w-8 h-4 => 32×16 px
+const CELL_W = 32;
+const CELL_H = 16;
 
 const COLORS = [
   "rgb(125 211 252)","rgb(249 168 212)","rgb(134 239 172)","rgb(253 224 71)",
@@ -65,7 +65,7 @@ const BackgroundBoxesCore = ({
             return (
               <motion.div
                 key={`c${i}-${j}`}
-                className="w-16 h-8 border-r border-t border-slate-700"
+                className="w-8 h-4 border-r border-t border-slate-700"
                 animate={{ backgroundColor: isHot ? COLORS[idx % COLORS.length] : "transparent" }}
                 transition={{ duration: 0.08 }}
               />
