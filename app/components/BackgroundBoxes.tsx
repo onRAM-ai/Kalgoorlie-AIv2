@@ -1,88 +1,80 @@
 "use client";
-import React, { memo, useEffect, useMemo, useRef, useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 
-function cn(...c: (string | undefined)[]) { return c.filter(Boolean).join(" "); }
+// tiny cn so we don't depend on "@/lib/utils"
+function cn(...cls: (string | undefined)[]) {
+  return cls.filter(Boolean).join(" ");
+}
 
-// 50% smaller squares
-const CELL = 32; // px -> Tailwind w-8 h-8
-const ROT_DEG = -12; // slight slant
-const ROT_RAD = (Math.PI / 180) * ROT_DEG;
-const COS = Math.cos(-ROT_RAD); // inverse rotation
-const SIN = Math.sin(-ROT_RAD);
+export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
+  const rows = new Array(150).fill(1);
+  const cols = new Array(100).fill(1);
 
-const COLORS = [
-  "rgb(125 211 252)","rgb(249 168 212)","rgb(134 239 172)","rgb(253 224 71)",
-  "rgb(252 165 165)","rgb(216 180 254)","rgb(147 197 253)","rgb(165 180 252)","rgb(196 181 253)"
-];
+  // direct color values
+  const colors = [
+    "rgb(125 211 252)", // sky-300
+    "rgb(249 168 212)", // pink-300
+    "rgb(134 239 172)", // green-300
+    "rgb(253 224 71)",  // yellow-300
+    "rgb(252 165 165)", // red-300
+    "rgb(216 180 254)", // purple-300
+    "rgb(147 197 253)", // blue-300
+    "rgb(165 180 252)", // indigo-300
+    "rgb(196 181 253)", // violet-300
+  ];
 
-export type Mouse = { x: number; y: number };
-
-const BackgroundBoxesCore = ({
-  className,
-  mouse,
-}: {
-  className?: string;
-  mouse: Mouse;
-}) => {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [size, setSize] = useState({ w: 0, h: 0 });
-
-  useEffect(() => {
-    if (!ref.current) return;
-    const el = ref.current;
-    const ro = new ResizeObserver(() => {
-      const r = el.getBoundingClientRect();
-      setSize({ w: Math.max(0, r.width), h: Math.max(0, r.height) });
-    });
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-
-  // grid from measured size
-  const COLS = Math.max(1, Math.ceil(size.w / CELL));
-  const ROWS = Math.max(1, Math.ceil(size.h / CELL));
-  const rows = useMemo(() => new Array(ROWS).fill(0), [ROWS]);
-  const cols = useMemo(() => new Array(COLS).fill(0), [COLS]);
-
-  // map cursor into unrotated grid space (inverse rotate around top-left)
-  const xr = mouse.x * COS - mouse.y * SIN;
-  const yr = mouse.x * SIN + mouse.y * COS;
-
-  const hiCol = Math.max(0, Math.min(COLS - 1, Math.floor(xr / CELL)));
-  const hiRow = Math.max(0, Math.min(ROWS - 1, Math.floor(yr / CELL)));
-  const hiIdx = hiRow * COLS + hiCol;
+  const getRandomColor = () => colors[Math.floor(Math.random() * colors.length)];
 
   return (
     <div
-      ref={ref}
-      className={cn("absolute inset-0 z-0 pointer-events-none", className)}
-      aria-hidden
+      style={{
+        transform:
+          "translate(-40%,-60%) skewX(-48deg) skewY(14deg) scale(0.675) rotate(0deg) translateZ(0)",
+      }}
+      className={cn(
+        // keep pointer events ON so hover works
+        "absolute left-1/4 p-4 -top-1/4 flex -translate-x-1/2 -translate-y-1/2 w-full h-full z-20",
+        className
+      )}
+      {...rest}
     >
-      <div
-        className="absolute inset-0"
-        style={{ transform: `rotate(${ROT_DEG}deg)`, transformOrigin: "0 0" }}
-      >
-        {rows.map((_, i) => (
-          <div key={`r${i}`} className="flex">
-            {cols.map((_, j) => {
-              const idx = i * COLS + j;
-              const isHot = idx === hiIdx;
-              return (
-                <motion.div
-                  key={`c${i}-${j}`}
-                  className="w-8 h-8" // squares, no borders
-                  animate={{ backgroundColor: isHot ? COLORS[idx % COLORS.length] : "transparent" }}
-                  transition={{ duration: 0.08 }}
-                />
-              );
-            })}
-          </div>
-        ))}
-      </div>
+      {rows.map((_, i) => (
+        <motion.div
+          key={`row${i}`}
+          className="w-16 h-8 border-l border-slate-700 relative"
+        >
+          {cols.map((_, j) => (
+            <motion.div
+              key={`col${j}`}
+              whileHover={{
+                backgroundColor: getRandomColor(),
+                transition: { duration: 0 },
+              }}
+              animate={{
+                transition: { duration: 2 },
+              }}
+              className="w-16 h-8 border-r border-t border-slate-700 relative"
+            >
+              {j % 2 === 0 && i % 2 === 0 ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="absolute h-6 w-10 -top-[14px] -left-[22px] text-slate-700 stroke-[1px] pointer-events-none"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
+                </svg>
+              ) : null}
+            </motion.div>
+          ))}
+        </motion.div>
+      ))}
     </div>
   );
 };
 
-export const BackgroundBoxes = memo(BackgroundBoxesCore);
+export const BackgroundBoxes = React.memo(BoxesCore);
 export default BackgroundBoxes;
