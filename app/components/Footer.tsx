@@ -72,7 +72,7 @@ export default function Footer() {
   return (
     <footer className="relative bg-[#121722] overflow-hidden">
       {/* Background grid */}
-      <BackgroundBoxes className="opacity-20 pointer-events-none" />
+      <BackgroundBoxes className="opacity-10 z-0" />
 
       {/* Gradient Line */}
       <div className="relative z-10 h-px w-full bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20" />
