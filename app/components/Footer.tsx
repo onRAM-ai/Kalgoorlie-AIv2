@@ -113,7 +113,7 @@ export default function Footer() {
   return (
     <footer className="relative bg-[#121722] overflow-hidden" onMouseMove={onMove}>
       {/* Reactive background under content */}
-      <BackgroundBoxes className="opacity-12" mouse={mouse} />
+      <BackgroundBoxes className="opacity-[0.12]" mouse={mouse} />
 
       {/* Gradient Line */}
       <div className="relative z-10 h-px w-full bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20" />
