@@ -2,13 +2,14 @@
 import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
-function cn(...cls: (string | undefined)[]) {
-  return cls.filter(Boolean).join(" ");
-}
+function cn(...c: (string | undefined)[]) { return c.filter(Boolean).join(" "); }
 
-// 50% smaller: Tailwind w-8 h-4 => 32×16 px
-const CELL_W = 32;
-const CELL_H = 16;
+// 50% smaller squares
+const CELL = 32; // px -> Tailwind w-8 h-8
+const ROT_DEG = -12; // slight slant
+const ROT_RAD = (Math.PI / 180) * ROT_DEG;
+const COS = Math.cos(-ROT_RAD); // inverse rotation
+const SIN = Math.sin(-ROT_RAD);
 
 const COLORS = [
   "rgb(125 211 252)","rgb(249 168 212)","rgb(134 239 172)","rgb(253 224 71)",
@@ -27,7 +28,6 @@ const BackgroundBoxesCore = ({
   const ref = useRef<HTMLDivElement | null>(null);
   const [size, setSize] = useState({ w: 0, h: 0 });
 
-  // Measure footer area
   useEffect(() => {
     if (!ref.current) return;
     const el = ref.current;
@@ -39,16 +39,18 @@ const BackgroundBoxesCore = ({
     return () => ro.disconnect();
   }, []);
 
-  // Derive grid from measured size
-  const COLS = Math.max(1, Math.ceil(size.w / CELL_W));
-  const ROWS = Math.max(1, Math.ceil(size.h / CELL_H));
-
+  // grid from measured size
+  const COLS = Math.max(1, Math.ceil(size.w / CELL));
+  const ROWS = Math.max(1, Math.ceil(size.h / CELL));
   const rows = useMemo(() => new Array(ROWS).fill(0), [ROWS]);
   const cols = useMemo(() => new Array(COLS).fill(0), [COLS]);
 
-  // Single hovered cell
-  const hiCol = Math.max(0, Math.min(COLS - 1, Math.floor(mouse.x / CELL_W)));
-  const hiRow = Math.max(0, Math.min(ROWS - 1, Math.floor(mouse.y / CELL_H)));
+  // map cursor into unrotated grid space (inverse rotate around top-left)
+  const xr = mouse.x * COS - mouse.y * SIN;
+  const yr = mouse.x * SIN + mouse.y * COS;
+
+  const hiCol = Math.max(0, Math.min(COLS - 1, Math.floor(xr / CELL)));
+  const hiRow = Math.max(0, Math.min(ROWS - 1, Math.floor(yr / CELL)));
   const hiIdx = hiRow * COLS + hiCol;
 
   return (
@@ -57,22 +59,27 @@ const BackgroundBoxesCore = ({
       className={cn("absolute inset-0 z-0 pointer-events-none", className)}
       aria-hidden
     >
-      {rows.map((_, i) => (
-        <div key={`r${i}`} className="flex">
-          {cols.map((_, j) => {
-            const idx = i * COLS + j;
-            const isHot = idx === hiIdx;
-            return (
-              <motion.div
-                key={`c${i}-${j}`}
-                className="w-8 h-4 border-r border-t border-slate-700"
-                animate={{ backgroundColor: isHot ? COLORS[idx % COLORS.length] : "transparent" }}
-                transition={{ duration: 0.08 }}
-              />
-            );
-          })}
-        </div>
-      ))}
+      <div
+        className="absolute inset-0"
+        style={{ transform: `rotate(${ROT_DEG}deg)`, transformOrigin: "0 0" }}
+      >
+        {rows.map((_, i) => (
+          <div key={`r${i}`} className="flex">
+            {cols.map((_, j) => {
+              const idx = i * COLS + j;
+              const isHot = idx === hiIdx;
+              return (
+                <motion.div
+                  key={`c${i}-${j}`}
+                  className="w-8 h-8" // squares, no borders
+                  animate={{ backgroundColor: isHot ? COLORS[idx % COLORS.length] : "transparent" }}
+                  transition={{ duration: 0.08 }}
+                />
+              );
+            })}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
