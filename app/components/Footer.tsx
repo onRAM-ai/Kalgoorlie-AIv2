@@ -3,6 +3,49 @@ import { useState } from 'react';
 import FooterLogo from './FooterLogo';
 import Link from 'next/link';
 import { supabase } from '../utils/supabase';
+import { motion } from 'framer-motion';
+
+/* Inline background grid (no external utils) */
+function cn(...c: (string | undefined)[]) { return c.filter(Boolean).join(' '); }
+function BackgroundBoxes({ className }: { className?: string }) {
+  const rows = new Array(120).fill(1);   // tune for perf
+  const cols = new Array(80).fill(1);
+  const colors = [
+    "rgb(125 211 252)","rgb(249 168 212)","rgb(134 239 172)","rgb(253 224 71)",
+    "rgb(252 165 165)","rgb(216 180 254)","rgb(147 197 253)","rgb(165 180 252)",
+    "rgb(196 181 253)",
+  ];
+  const getRandomColor = () => colors[Math.floor(Math.random() * colors.length)];
+
+  return (
+    <div
+      style={{ transform: "translate(-40%,-60%) skewX(-48deg) skewY(14deg) scale(0.675) rotate(0deg) translateZ(0)" }}
+      className={cn("absolute left-1/4 p-4 -top-1/4 flex -translate-x-1/2 -translate-y-1/2 w-full h-full z-0", className)}
+      aria-hidden
+    >
+      {rows.map((_, i) => (
+        <motion.div key={`row${i}`} className="w-16 h-8 border-l border-slate-700 relative">
+          {cols.map((_, j) => (
+            <motion.div
+              key={`col${j}`}
+              whileHover={{ backgroundColor: getRandomColor(), transition: { duration: 0 } }}
+              animate={{ transition: { duration: 2 } }}
+              className="w-16 h-8 border-r border-t border-slate-700 relative"
+            >
+              {j % 2 === 0 && i % 2 === 0 ? (
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                  strokeWidth="1.5" stroke="currentColor"
+                  className="absolute h-6 w-10 -top-[14px] -left-[22px] text-slate-700 stroke-[1px] pointer-events-none">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
+                </svg>
+              ) : null}
+            </motion.div>
+          ))}
+        </motion.div>
+      ))}
+    </div>
+  );
+}
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -13,41 +56,28 @@ export default function Footer() {
     e.preventDefault();
     setStatus('loading');
     setMessage('');
-
     try {
-      // Validate email
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        throw new Error('Invalid email format');
-      }
-
-      // Insert subscriber directly into Supabase
-      const { error } = await supabase
-        .from('newsletter_subscribers')
-        .insert([{ email }]);
-
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error('Invalid email format');
+      const { error } = await supabase.from('newsletter_subscribers').insert([{ email }]);
       if (error) {
-        // Handle unique constraint violation
-        if (error.code === '23505') {
-          throw new Error('This email is already subscribed');
-        }
+        if ((error as any).code === '23505') throw new Error('This email is already subscribed');
         throw error;
       }
-
-      setStatus('success');
-      setMessage('Successfully subscribed to newsletter!');
-      setEmail('');
+      setStatus('success'); setMessage('Successfully subscribed to newsletter!'); setEmail('');
     } catch (error) {
-      setStatus('error');
-      setMessage(error instanceof Error ? error.message : 'Failed to subscribe');
+      setStatus('error'); setMessage(error instanceof Error ? error.message : 'Failed to subscribe');
     }
   };
 
   return (
-    <footer className="relative bg-[#121722]">
+    <footer className="relative bg-[#121722] overflow-hidden">
+      {/* Background grid */}
+      <BackgroundBoxes className="opacity-20 pointer-events-none" />
+
       {/* Gradient Line */}
-      <div className="h-px w-full bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20" />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="relative z-10 h-px w-full bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Company Info */}
           <div>
@@ -81,11 +111,7 @@ export default function Footer() {
                   disabled={status === 'loading'}
                   className="absolute right-2 top-1/2 -translate-y-1/2 bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {status === 'loading' ? (
-                    <i className="fas fa-spinner fa-spin" />
-                  ) : (
-                    'Subscribe'
-                  )}
+                  {status === 'loading' ? <i className="fas fa-spinner fa-spin" /> : 'Subscribe'}
                 </button>
               </div>
               {message && (
