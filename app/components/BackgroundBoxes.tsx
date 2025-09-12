@@ -7,8 +7,8 @@ function cn(...cls: (string | undefined)[]) {
 }
 
 // Tune for speed vs coverage. Original was 150×100.
-const ROWS = 90;
-const COLS = 60;
+const ROWS = 110;
+const COLS = 80;
 
 const COLORS = [
   "rgb(125 211 252)", // sky-300
