@@ -1,3 +1,4 @@
+// app/api/questionnaire/route.ts
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
@@ -14,12 +15,16 @@ const schema = z.object({
   otherFrustrations: z.string().optional(),
 });
 
+const TO = process.env.EMAIL_TO || process.env.TO_EMAIL;
+const FROM = process.env.EMAIL_FROM || process.env.FROM_EMAIL;
+
 export async function POST(req: Request) {
   try {
     const data = schema.parse(await req.json());
+    if (!TO || !FROM) throw new Error('Missing EMAIL_TO/EMAIL_FROM (or TO_EMAIL/FROM_EMAIL)');
 
     const subject = `New AI Readiness Submission: ${data.name}`;
-    const lines = [
+    const text = [
       `Name: ${data.name}`,
       `Email: ${data.email}`,
       `Phone: ${data.phone ?? ''}`,
@@ -31,8 +36,7 @@ export async function POST(req: Request) {
           ? `Other: ${data.otherFrustrations ?? ''}`
           : data.frustrations
       }`,
-    ];
-    const text = lines.join('\n');
+    ].join('\n');
     const html = `<pre style="font:14px/1.5 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace">${text}</pre>`;
 
     const res = await fetch('https://api.resend.com/emails', {
@@ -42,24 +46,18 @@ export async function POST(req: Request) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: process.env.EMAIL_FROM!,
-        to: process.env.EMAIL_TO!,
+        from: FROM,
+        to: TO,
         subject,
         text,
         html,
       }),
     });
 
-    if (!res.ok) {
-      const body = await res.text();
-      throw new Error(`Resend HTTP ${res.status}: ${body}`);
-    }
-
-    return NextResponse.json({ ok: true }, { status: 200 });
+    if (!res.ok) throw new Error(`Resend HTTP ${res.status}: ${await res.text()}`);
+    return NextResponse.json({ ok: true });
   } catch (err: any) {
     console.error('Questionnaire email error:', err);
-    const msg =
-      err?.issues?.[0]?.message || err?.message || 'Invalid request';
-    return NextResponse.json({ ok: false, error: msg }, { status: 400 });
+    return NextResponse.json({ ok: false, error: String(err.message || err) }, { status: 400 });
   }
 }
