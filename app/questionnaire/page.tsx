@@ -1,10 +1,8 @@
 'use client';
 import { useState } from 'react';
-import Link from 'next/link';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ParticlesBackground from '../components/ParticlesBackground';
-import { supabase } from '../utils/supabase';
 
 export default function Questionnaire() {
   const [formData, setFormData] = useState({
@@ -15,91 +13,100 @@ export default function Questionnaire() {
     computerUsage: '',
     adminTime: '',
     frustrations: '',
-    otherFrustrations: ''
+    otherFrustrations: '',
   });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const options = {
     currentAI: [
       "Newcomer - We don't use any AI or automation tools",
-      "Early Adapter - We sometimes use ChatGPT and email rules",
-      "Innovator - We use a combination of LLM's and automation tools"
+      'Early Adapter - We sometimes use ChatGPT and email rules',
+      "Innovator - We use a combination of LLM's and automation tools",
     ],
     computerUsage: [
-      "Essential – We need computers for most of our work.",
-      "Useful – We use computers, but not for everything.",
-      "Minimal – We rarely use computers"
+      'Essential – We need computers for most of our work.',
+      'Useful – We use computers, but not for everything.',
+      'Minimal – We rarely use computers',
     ],
-    adminTime: [
-      "0-2 hours per day",
-      "2-4 hours per day",
-      "4-6 hours per day",
-    ],
+    adminTime: ['0-2 hours per day', '2-4 hours per day', '4-6 hours per day'],
     frustrations: [
-      "Manual data entry and paperwork",
-      "Difficulty keeping track of information and tasks",
-      "Repetitive work taking up too much time",
-      "Attending meetings",
-      "Other"
-    ]
+      'Manual data entry and paperwork',
+      'Difficulty keeping track of information and tasks',
+      'Repetitive work taking up too much time',
+      'Attending meetings',
+      'Other',
+    ],
   };
 
-  const handleSubmit = async (e: React.FormEvent, isCalendly: boolean = false) => {
+  // Submit handler
+  const handleSubmit = async (e: React.FormEvent, isCalendly = false) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError(null);
 
     try {
-      // Insert data into Supabase
-      const { error: supabaseError } = await supabase
-        .from('leads')
-        .insert([{
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          current_ai: formData.currentAI,
-          computer_usage: formData.computerUsage,
-          admin_time: formData.adminTime,
-          frustrations: formData.frustrations === 'Other' 
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        currentAI: formData.currentAI,
+        computerUsage: formData.computerUsage,
+        adminTime: formData.adminTime,
+        frustrations:
+          formData.frustrations === 'Other'
             ? `Other: ${formData.otherFrustrations}`
-            : formData.frustrations
-        }]);
+            : formData.frustrations,
+      };
 
-      if (supabaseError) throw supabaseError;
+      const res = await fetch('/api/questionnaire', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
 
-      // If successful and Calendly button was clicked, redirect to Calendly
-      if (isCalendly) {
-        window.location.href = 'https://calendly.com/kalgoorie-ai/30min';
-      } else {
-        // Clear form and show success message
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          currentAI: '',
-          computerUsage: '',
-          adminTime: '',
-          frustrations: '',
-          otherFrustrations: ''
-        });
-        alert('Assessment submitted successfully!');
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body?.error || 'Failed to send email');
       }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to save assessment');
+
+      // Redirect or success message
+      if (isCalendly) {
+        window.location.href = 'https://calendly.com/kalgoorlie-ai/30min';
+        return;
+      }
+
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        currentAI: '',
+        computerUsage: '',
+        adminTime: '',
+        frustrations: '',
+        otherFrustrations: '',
+      });
+
+      alert('Your assessment was submitted successfully!');
+    } catch (err: any) {
+      setError(err.message || 'Something went wrong');
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData(prev => ({
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
-  const selectClasses = "w-full rounded-lg px-4 py-3 bg-[#1A1F2C] border border-white/10 text-text placeholder:text-text-secondary focus:outline-none focus:border-primary transition-colors appearance-none";
+  const selectClasses =
+    'w-full rounded-lg px-4 py-3 bg-[#1A1F2C] border border-white/10 text-text placeholder:text-text-secondary focus:outline-none focus:border-primary transition-colors appearance-none';
 
   return (
     <>
@@ -107,7 +114,7 @@ export default function Questionnaire() {
       <main className="min-h-screen pt-24 md:pt-32">
         <section className="py-20 overflow-hidden" aria-labelledby="questionnaire-heading">
           <ParticlesBackground />
-          
+
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center mb-12">
               <h1 id="questionnaire-heading" className="text-4xl font-bold mb-4 text-gradient">
@@ -131,7 +138,7 @@ export default function Questionnaire() {
                 <div className="space-y-4">
                   <label className="block">
                     <span className="text-sm font-medium block mb-1">Name</span>
-                    <input 
+                    <input
                       type="text"
                       name="name"
                       value={formData.name}
@@ -141,10 +148,10 @@ export default function Questionnaire() {
                       required
                     />
                   </label>
-                  
+
                   <label className="block">
                     <span className="text-sm font-medium block mb-1">Email</span>
-                    <input 
+                    <input
                       type="email"
                       name="email"
                       value={formData.email}
@@ -154,10 +161,10 @@ export default function Questionnaire() {
                       required
                     />
                   </label>
-                  
+
                   <label className="block">
                     <span className="text-sm font-medium block mb-1">Phone</span>
-                    <input 
+                    <input
                       type="tel"
                       name="phone"
                       value={formData.phone}
@@ -170,179 +177,90 @@ export default function Questionnaire() {
                 </div>
               </div>
 
-              <div className="bg-primary/10 border border-primary/20 rounded-xl p-6">
-                <label className="block mb-4">
-                  <span className="text-lg font-semibold block mb-2">What AI or automations do you currently use?</span>
-                  <div className="relative">
-                    <select
-                      name="currentAI"
-                      value={formData.currentAI}
-                      onChange={handleChange}
-                      className={selectClasses}
-                      required
-                      style={{
-                        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2342D4B3'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
-                        backgroundRepeat: 'no-repeat',
-                        backgroundPosition: 'right 1rem center',
-                        backgroundSize: '1.5em 1.5em'
-                      }}
-                    >
-                      <option value="">Select an option</option>
-                      {options.currentAI.map((option) => (
-                        <option key={option} value={option}>{option}</option>
-                      ))}
-                    </select>
-                  </div>
-                </label>
-              </div>
-
-              <div className="bg-primary/10 border border-primary/20 rounded-xl p-6">
-                <label className="block mb-4">
-                  <span className="text-lg font-semibold block mb-2">What role do computers play in your business operations?</span>
-                  <div className="relative">
-                    <select
-                      name="computerUsage"
-                      value={formData.computerUsage}
-                      onChange={handleChange}
-                      className={selectClasses}
-                      required
-                      style={{
-                        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2342D4B3'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
-                        backgroundRepeat: 'no-repeat',
-                        backgroundPosition: 'right 1rem center',
-                        backgroundSize: '1.5em 1.5em'
-                      }}
-                    >
-                      <option value="">Select an option</option>
-                      {options.computerUsage.map((option) => (
-                        <option key={option} value={option}>{option}</option>
-                      ))}
-                    </select>
-                  </div>
-                </label>
-              </div>
-
-              <div className="bg-primary/10 border border-primary/20 rounded-xl p-6">
-                <label className="block mb-4">
-                  <span className="text-lg font-semibold block mb-2">How much time do you and your team spend on repetitive admin work?</span>
-                  <div className="relative">
-                    <select
-                      name="adminTime"
-                      value={formData.adminTime}
-                      onChange={handleChange}
-                      className={selectClasses}
-                      required
-                      style={{
-                        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2342D4B3'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
-                        backgroundRepeat: 'no-repeat',
-                        backgroundPosition: 'right 1rem center',
-                        backgroundSize: '1.5em 1.5em'
-                      }}
-                    >
-                      <option value="">Select an option</option>
-                      {options.adminTime.map((option) => (
-                        <option key={option} value={option}>{option}</option>
-                      ))}
-                    </select>
-                  </div>
-                </label>
-              </div>
-
-              <div className="bg-primary/10 border border-primary/20 rounded-xl p-6">
-                <label className="block mb-4">
-                  <span className="text-lg font-semibold block mb-2">What business process slows you down the most?</span>
-                  <div className="relative">
-                    <select
-                      name="frustrations"
-                      value={formData.frustrations}
-                      onChange={handleChange}
-                      className={selectClasses}
-                      required
-                      style={{
-                        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2342D4B3'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
-                        backgroundRepeat: 'no-repeat',
-                        backgroundPosition: 'right 1rem center',
-                        backgroundSize: '1.5em 1.5em'
-                      }}
-                    >
-                      <option value="">Select an option</option>
-                      {options.frustrations.map((option) => (
-                        <option key={option} value={option}>{option}</option>
-                      ))}
-                    </select>
-                  </div>
-                </label>
-
-                {formData.frustrations === 'Other' && (
-                  <div className="mt-4">
-                    <label className="block">
-                      <span className="text-sm font-medium block mb-1">Please specify your frustrations</span>
-                      <textarea
-                        name="otherFrustrations"
-                        value={formData.otherFrustrations}
+              {/* Dynamic Dropdowns */}
+              {[
+                ['currentAI', 'What AI or automations do you currently use?', options.currentAI],
+                [
+                  'computerUsage',
+                  'What role do computers play in your business operations?',
+                  options.computerUsage,
+                ],
+                [
+                  'adminTime',
+                  'How much time do you and your team spend on repetitive admin work?',
+                  options.adminTime,
+                ],
+                ['frustrations', 'What business process slows you down the most?', options.frustrations],
+              ].map(([name, label, items]) => (
+                <div key={name as string} className="bg-primary/10 border border-primary/20 rounded-xl p-6">
+                  <label className="block mb-4">
+                    <span className="text-lg font-semibold block mb-2">{label as string}</span>
+                    <div className="relative">
+                      <select
+                        name={name as string}
+                        value={(formData as any)[name as string]}
                         onChange={handleChange}
-                        className="w-full rounded-lg px-4 py-3 bg-[#1A1F2C] border border-white/10 text-text placeholder:text-text-secondary focus:outline-none focus:border-primary transition-colors resize-none"
-                        placeholder="Tell us about your specific business process frustrations..."
-                        rows={4}
+                        className={selectClasses}
                         required
-                      />
-                    </label>
-                  </div>
-                )}
-              </div>
+                        style={{
+                          backgroundImage:
+                            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2342D4B3'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E\")",
+                          backgroundRepeat: 'no-repeat',
+                          backgroundPosition: 'right 1rem center',
+                          backgroundSize: '1.5em 1.5em',
+                        }}
+                      >
+                        <option value="">Select an option</option>
+                        {(items as string[]).map((opt) => (
+                          <option key={opt} value={opt}>
+                            {opt}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </label>
 
-              {/* Ready to start section */}
+                  {name === 'frustrations' && formData.frustrations === 'Other' && (
+                    <div className="mt-4">
+                      <label className="block">
+                        <span className="text-sm font-medium block mb-1">
+                          Please specify your frustrations
+                        </span>
+                        <textarea
+                          name="otherFrustrations"
+                          value={formData.otherFrustrations}
+                          onChange={handleChange}
+                          className="w-full rounded-lg px-4 py-3 bg-[#1A1F2C] border border-white/10 text-text placeholder:text-text-secondary focus:outline-none focus:border-primary transition-colors resize-none"
+                          placeholder="Tell us about your specific business process frustrations..."
+                          rows={4}
+                          required
+                        />
+                      </label>
+                    </div>
+                  )}
+                </div>
+              ))}
+
+              {/* Submit Section */}
               <div className="bg-primary/10 border border-primary/20 rounded-xl p-8 text-center">
                 <h2 className="text-2xl font-bold mb-4">
                   Ready to start <span className="text-gradient">doing more with less</span>?
                 </h2>
                 <div className="space-y-4">
-                  <button 
+                  <button
                     type="button"
                     onClick={(e) => handleSubmit(e, true)}
                     disabled={isSubmitting}
                     className="w-full btn-primary text-lg py-4 rounded-full flex items-center justify-center gap-2 group disabled:opacity-70"
                   >
-                    {isSubmitting ? (
-                      <>
-                        <i className="fas fa-spinner fa-spin"></i>
-                        Submitting...
-                      </>
-                    ) : (
-                      <>
-                        Book a Discovery Call
-                        <svg 
-                          className="w-5 h-5 transform transition-transform group-hover:translate-x-1" 
-                          fill="none" 
-                          stroke="currentColor" 
-                          viewBox="0 0 24 24"
-                        >
-                          <path 
-                            strokeLinecap="round" 
-                            strokeLinejoin="round" 
-                            strokeWidth={2} 
-                            d="M13 7l5 5m0 0l-5 5m5-5H6" 
-                          />
-                        </svg>
-                      </>
-                    )}
+                    {isSubmitting ? 'Submitting...' : 'Book a Discovery Call'}
                   </button>
-                  <button 
+                  <button
                     type="submit"
                     disabled={isSubmitting}
                     className="w-full border-2 border-primary text-primary hover:bg-primary/10 text-lg py-4 rounded-full flex items-center justify-center gap-2 group disabled:opacity-70 transition-colors"
                   >
-                    {isSubmitting ? (
-                      <>
-                        <i className="fas fa-spinner fa-spin"></i>
-                        Submitting...
-                      </>
-                    ) : (
-                      <>
-                        Submit 
-                        <i className="fas fa-paper-plane transform transition-transform group-hover:translate-x-1"></i>
-                      </>
-                    )}
+                    {isSubmitting ? 'Submitting...' : 'Submit'}
                   </button>
                 </div>
               </div>
