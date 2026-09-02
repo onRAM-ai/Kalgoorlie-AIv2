@@ -19,7 +19,7 @@ export default function TermsOfService() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">1. Agreement to Terms</h2>
             <p className="text-text-secondary">
-              These Terms of Service are governed by the laws of Western Australia, Australia. By accessing or using Kalgoorlie AI's services, you agree to these terms and confirm that you have the legal capacity to enter into this agreement.
+              These Terms of Service are governed by the laws of Western Australia, Australia. By accessing or using onram AI's services, you agree to these terms and confirm that you have the legal capacity to enter into this agreement.
             </p>
           </section>
 
@@ -78,15 +78,10 @@ export default function TermsOfService() {
           <section>
             <h2 className="text-2xl font-semibold mb-4">8. Contact Us</h2>
             <p className="text-text-secondary">
-              For legal inquiries, please contact us at:
-              <br />
-              <a href="mailto:marno@kalgoorlie.ai" className="text-primary hover:text-primary/80 transition-colors">
-                marno@kalgoorlie.ai
-              </a>
-              <br />
-              Phone: 0409 913 694
-              <br />
-              Address: 140 Hannan Street, Kalgoorlie 6430 WA
+              For legal inquiries, please use our{' '}
+              <Link href="/contact" className="text-primary hover:text-primary/80 transition-colors">
+                contact form
+              </Link>.
             </p>
           </section>
         </div>

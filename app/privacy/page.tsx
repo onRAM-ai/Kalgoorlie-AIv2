@@ -19,7 +19,7 @@ export default function PrivacyPolicy() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>
             <p className="text-text-secondary">
-              This Privacy Policy explains how Kalgoorlie AI ("we", "our", or "us") collects, uses, and protects your personal information in accordance with the Privacy Act 1988 (Cth) and the Australian Privacy Principles (APPs).
+              This Privacy Policy explains how onram AI, formerly Kalgoorlie AI ("we", "our", or "us"), collects, uses, and protects your personal information in accordance with the Privacy Act 1988 (Cth) and the Australian Privacy Principles (APPs).
             </p>
           </section>
 
@@ -90,15 +90,10 @@ export default function PrivacyPolicy() {
           <section>
             <h2 className="text-2xl font-semibold mb-4">8. Contact Us</h2>
             <p className="text-text-secondary">
-              For privacy-related inquiries, please contact our Privacy Officer at:
-              <br />
-              <a href="mailto:marno@kalgoorlie.ai" className="text-primary hover:text-primary/80 transition-colors">
-                marno@kalgoorlie.ai
-              </a>
-              <br />
-              Phone: 0409 913 694
-              <br />
-              Address: 140 Hannan Street, Kalgoorlie 6430 WA
+              For privacy-related inquiries, please use our{' '}
+              <Link href="/contact" className="text-primary hover:text-primary/80 transition-colors">
+                contact form
+              </Link>.
             </p>
           </section>
         </div>
