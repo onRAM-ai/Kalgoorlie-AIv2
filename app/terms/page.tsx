@@ -14,7 +14,7 @@ export default function TermsOfService() {
   return (
     <>
       <Navbar />
-      <main className="legal-page">
+      <main className="legal-page" id="main-content">
       <div className="legal-content">
         <Link 
           href="/" 

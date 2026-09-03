@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main>
+      <main id="main-content">
         <section className="hero" id="home" aria-labelledby="hero-title">
           <div className="hero-copy shell">
             <div className="hero-text">

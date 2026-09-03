@@ -7,6 +7,7 @@ export default function ContactForm() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
   const change = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    if (status === 'error') setStatus('idle');
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
@@ -32,10 +33,10 @@ export default function ContactForm() {
         <label>Website<input name="website" value={formData.website} onChange={change} tabIndex={-1} autoComplete="off" /></label>
       </div>
       <div className="field-row">
-        <label>Name<input name="name" value={formData.name} onChange={change} required /></label>
-        <label>Email<input type="email" name="email" value={formData.email} onChange={change} required /></label>
+        <label>Name<input name="name" value={formData.name} onChange={change} autoComplete="name" required /></label>
+        <label>Email<input type="email" name="email" value={formData.email} onChange={change} autoComplete="email" required /></label>
       </div>
-      <label>Business<input name="company" value={formData.company} onChange={change} /></label>
+      <label>Business<input name="company" value={formData.company} onChange={change} autoComplete="organization" /></label>
       <label>How can we help?
         <select name="service" value={formData.service} onChange={change} required>
           <option value="">Choose one</option>
@@ -45,7 +46,7 @@ export default function ContactForm() {
       </label>
       <label>What would you like to make possible?<textarea name="message" value={formData.message} onChange={change} rows={5} required /></label>
       {status === 'error' && <p className="form-error" role="alert">Your message couldn’t be sent. Please wait a moment and try again.</p>}
-      <button className="button button-primary" type="submit" disabled={status === 'sending'}>{status === 'sending' ? 'Sending…' : 'Send message'}</button>
+      <button className="button button-primary" type="submit" disabled={status === 'sending'} aria-live="polite">{status === 'sending' ? 'Sending…' : 'Send message'}</button>
       <p className="form-privacy">We’ll only use these details to respond to your enquiry. See our <a href="/privacy">privacy policy</a>.</p>
     </form>
   );

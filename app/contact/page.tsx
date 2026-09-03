@@ -14,7 +14,7 @@ export default function Contact() {
   return (
     <>
       <Navbar />
-      <main className="contact-page">
+      <main className="contact-page" id="main-content">
         <section className="contact-hero" aria-labelledby="contact-title">
           <div className="shell contact-grid">
             <div>
