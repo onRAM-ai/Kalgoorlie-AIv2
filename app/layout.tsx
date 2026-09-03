@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     default: 'onram AI | Make more possible',
     template: '%s | onram AI',
   },
-  description: 'Practical AI consulting and hands-on AI training for business owners and management teams. Formerly Kalgoorlie AI.',
+  description: 'Practical AI consulting and hands-on training for owners and managers of service businesses. Formerly Kalgoorlie AI.',
   keywords: ['AI consulting', 'AI training', 'AI workshops', 'AI for management', 'Kalgoorlie', 'Western Australia'],
   authors: [{ name: 'onram AI' }],
   creator: 'onram AI',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     url: 'https://www.onram.ai',
     siteName: 'onram AI',
     title: 'onram AI | Make more possible',
-    description: 'Practical AI consulting and hands-on AI training for business owners and management teams.',
+    description: 'Practical AI consulting and hands-on training for owners and managers of service businesses.',
   },
   alternates: { canonical: 'https://www.onram.ai' },
 };
@@ -38,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           name: 'onram AI',
           alternateName: 'Kalgoorlie AI',
           url: 'https://www.onram.ai',
-          description: 'Practical AI consulting and AI training for business owners and management teams.',
+          description: 'Practical AI consulting and AI training for owners and managers of service businesses.',
           areaServed: { '@type': 'AdministrativeArea', name: 'Western Australia' },
           address: { '@type': 'PostalAddress', addressLocality: 'Kalgoorlie-Boulder', addressRegion: 'WA', addressCountry: 'AU' },
         }) }} />

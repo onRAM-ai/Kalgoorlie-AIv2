@@ -44,9 +44,9 @@ export default function ContactForm() {
           <option>AI Training &amp; Workshops</option>
         </select>
       </label>
-      <label>What would you like to make possible?<textarea name="message" value={formData.message} onChange={change} rows={5} required /></label>
+      <label>What would you like to improve?<textarea name="message" value={formData.message} onChange={change} rows={5} required /></label>
       {status === 'error' && <p className="form-error" role="alert">Your message couldn’t be sent. Please wait a moment and try again.</p>}
-      <button className="button button-primary" type="submit" disabled={status === 'sending'} aria-live="polite">{status === 'sending' ? 'Sending…' : 'Send message'}</button>
+      <button className="button button-primary" type="submit" disabled={status === 'sending'} aria-live="polite">{status === 'sending' ? 'Sending…' : 'Send enquiry'}</button>
       <p className="form-privacy">We’ll only use these details to respond to your enquiry. See our <a href="/privacy">privacy policy</a>.</p>
     </form>
   );
