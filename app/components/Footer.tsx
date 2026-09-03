@@ -5,14 +5,13 @@ export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="shell footer-main">
-        <div>
-          <Image src="/brand/onram-logo-light.svg" alt="onram AI" width={150} height={98} />
-          <p>Practical AI for better business.</p>
+        <div className="footer-brand">
+          <Image src="/brand/onram-logo-light.svg" alt="onram AI — Better Tools. Better Business." width={170} height={110} />
           <span className="footer-former">Formerly Kalgoorlie AI</span>
         </div>
         <div className="footer-links">
-          <a href="/#services">Services</a>
-          <a href="/#approach">Approach</a>
+          <Link href="/#services">Services</Link>
+          <Link href="/#approach">Approach</Link>
           <Link href="/contact">Contact</Link>
           <Link href="/privacy">Privacy</Link>
           <Link href="/terms">Terms</Link>

@@ -1,9 +1,21 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy',
+  description: 'How onram AI collects, uses and protects personal information.',
+  alternates: { canonical: '/privacy' },
+  openGraph: { url: '/privacy' },
+};
 
 export default function PrivacyPolicy() {
   return (
-    <main className="min-h-screen py-20 px-4">
-      <div className="max-w-4xl mx-auto">
+    <>
+      <Navbar />
+      <main className="legal-page">
+      <div className="legal-content">
         <Link 
           href="/" 
           className="inline-block mb-8 text-primary hover:text-primary/80 transition-colors"
@@ -11,15 +23,16 @@ export default function PrivacyPolicy() {
           ← Back to Home
         </Link>
         
-        <h1 className="text-4xl font-bold mb-8 text-gradient">Privacy Policy</h1>
+        <p className="eyebrow">Your information</p>
+        <h1>Privacy Policy</h1>
         
         <div className="prose prose-invert prose-primary max-w-none">
-          <p className="text-text-secondary mb-6">Last updated: {new Date().toLocaleDateString()}</p>
+          <p className="legal-date">Last updated: 2 September 2026</p>
           
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>
             <p className="text-text-secondary">
-              This Privacy Policy explains how onram AI, formerly Kalgoorlie AI ("we", "our", or "us"), collects, uses, and protects your personal information in accordance with the Privacy Act 1988 (Cth) and the Australian Privacy Principles (APPs).
+              This policy explains how onram AI, formerly Kalgoorlie AI (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;), collects, uses and protects personal information. Where applicable, we handle personal information in accordance with the Privacy Act 1988 (Cth) and the Australian Privacy Principles.
             </p>
           </section>
 
@@ -30,18 +43,17 @@ export default function PrivacyPolicy() {
             </p>
             <ul className="list-disc pl-6 mb-4 text-text-secondary">
               <li>Name and contact details</li>
-              <li>Email address for newsletter subscriptions</li>
+              <li>Email address and telephone number when you provide them</li>
               <li>Business information</li>
-              <li>Website usage data</li>
-              <li>Communication preferences</li>
+              <li>The information included in an enquiry or service conversation</li>
             </ul>
             <p className="text-text-secondary">
               We collect this information through:
             </p>
             <ul className="list-disc pl-6 text-text-secondary">
               <li>Direct communications with you</li>
-              <li>Website forms and subscriptions</li>
-              <li>Analytics and cookies</li>
+              <li>Our website contact form</li>
+              <li>Service delivery and direct business communications</li>
             </ul>
           </section>
 
@@ -62,7 +74,7 @@ export default function PrivacyPolicy() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">4. Data Security</h2>
             <p className="text-text-secondary">
-              We take reasonable steps to protect your personal information from misuse, interference, loss, unauthorized access, modification, or disclosure. Your personal information is stored securely and accessed only by authorized personnel.
+              We take reasonable steps to protect personal information from misuse, interference, loss, unauthorised access, modification or disclosure. Website enquiries are processed using our hosting and email service providers and are accessible only to people who need the information to respond or deliver services.
             </p>
           </section>
 
@@ -76,14 +88,14 @@ export default function PrivacyPolicy() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">6. Complaints</h2>
             <p className="text-text-secondary">
-              If you believe we have breached the Australian Privacy Principles, you can lodge a complaint with us by contacting our Privacy Officer. We will investigate and respond within 30 days. If you're not satisfied with our response, you can contact the Office of the Australian Information Commissioner (OAIC).
+              If you believe we have breached the Australian Privacy Principles, you can lodge a complaint with us by contacting our Privacy Officer. We will investigate and respond within 30 days. If you&apos;re not satisfied with our response, you can contact the Office of the Australian Information Commissioner (OAIC).
             </p>
           </section>
 
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">7. Overseas Disclosure</h2>
             <p className="text-text-secondary">
-              We may disclose personal information to overseas recipients for cloud storage and other business operations. We take reasonable steps to ensure overseas recipients handle your personal information in accordance with Australian privacy laws.
+              Some technology providers we use may process or store information outside Australia. Where applicable, we take reasonable steps to ensure personal information is handled consistently with Australian privacy requirements.
             </p>
           </section>
 
@@ -98,6 +110,8 @@ export default function PrivacyPolicy() {
           </section>
         </div>
       </div>
-    </main>
+      </main>
+      <Footer />
+    </>
   );
 }

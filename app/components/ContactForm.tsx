@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 export default function ContactForm() {
-  const [formData, setFormData] = useState({ name: '', email: '', company: '', service: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', company: '', service: '', message: '', website: '' });
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
   const change = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -23,11 +23,14 @@ export default function ContactForm() {
   };
 
   if (status === 'sent') {
-    return <div className="form-success"><span>✓</span><h2>Thanks. We’ll be in touch.</h2><p>Your message is on its way.</p></div>;
+    return <div className="form-success" role="status"><span aria-hidden="true">✓</span><h2>Thanks. We’ll be in touch.</h2><p>Your message is on its way.</p></div>;
   }
 
   return (
     <form className="contact-form" onSubmit={submit}>
+      <div className="form-honeypot" aria-hidden="true">
+        <label>Website<input name="website" value={formData.website} onChange={change} tabIndex={-1} autoComplete="off" /></label>
+      </div>
       <div className="field-row">
         <label>Name<input name="name" value={formData.name} onChange={change} required /></label>
         <label>Email<input type="email" name="email" value={formData.email} onChange={change} required /></label>
@@ -41,8 +44,9 @@ export default function ContactForm() {
         </select>
       </label>
       <label>What would you like to make possible?<textarea name="message" value={formData.message} onChange={change} rows={5} required /></label>
-      {status === 'error' && <p className="form-error">Something went wrong. Please try again.</p>}
+      {status === 'error' && <p className="form-error" role="alert">Your message couldn’t be sent. Please wait a moment and try again.</p>}
       <button className="button button-primary" type="submit" disabled={status === 'sending'}>{status === 'sending' ? 'Sending…' : 'Send message'}</button>
+      <p className="form-privacy">We’ll only use these details to respond to your enquiry. See our <a href="/privacy">privacy policy</a>.</p>
     </form>
   );
 }

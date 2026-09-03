@@ -18,7 +18,7 @@ export default function Navbar() {
     <header className="site-header">
       <div className="shell nav-inner">
         <Link className="brand" href="/" aria-label="onram AI home">
-          <Image src="/brand/onram-logo-light.svg" alt="onram AI — Better Tools. Better Business." width={170} height={110} priority />
+          <Image src="/brand/onram-logo-light.svg" alt="onram AI — Better Tools. Better Business." width={190} height={123} priority />
         </Link>
         <div className="former-tag">Formerly Kalgoorlie AI</div>
         <nav className={open ? 'nav-links nav-open' : 'nav-links'} aria-label="Main navigation">

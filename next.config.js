@@ -1,30 +1,54 @@
 /** @type {import('next').NextConfig} */
+
+const isDevelopment = process.env.NODE_ENV === 'development';
+
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ''}`,
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com data:",
+  "img-src 'self' data: blob:",
+  `connect-src 'self'${isDevelopment ? ' ws: wss:' : ''}`,
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+  ...(isDevelopment ? [] : ['upgrade-insecure-requests']),
+].join('; ');
+
+const securityHeaders = [
+  { key: 'Content-Security-Policy', value: contentSecurityPolicy },
+  { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+  { key: 'X-Content-Type-Options', value: 'nosniff' },
+  { key: 'X-Frame-Options', value: 'DENY' },
+  { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
+  { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), payment=(), usb=()' },
+  ...(isDevelopment ? [] : [{
+    key: 'Strict-Transport-Security',
+    value: 'max-age=63072000; includeSubDomains; preload',
+  }]),
+];
+
 const nextConfig = {
-  images: {
-    domains: ['wterdonskdvfowdogvfc.supabase.co'],
-    unoptimized: true
-  },
-  // Enable React strict mode for better development experience
   reactStrictMode: true,
-  // Optimize fonts
-  optimizeFonts: true,
-  // Disable SWC minifier due to WebContainer limitations
-  swcMinify: false,
-  // Add environment variables that need to be exposed to the browser
-  env: {
-    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
-    NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  poweredByHeader: false,
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: securityHeaders,
+      },
+    ];
   },
-  // Disable experimental features for better compatibility
-  experimental: {
-    forceSwcTransforms: false
+  async redirects() {
+    return [
+      {
+        source: '/questionnaire',
+        destination: '/contact',
+        permanent: true,
+      },
+    ];
   },
-  typescript: {
-    ignoreBuildErrors: true
-  },
-  eslint: {
-    ignoreDuringBuilds: true
-  }
 };
 
 module.exports = nextConfig;

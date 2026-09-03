@@ -1,9 +1,21 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+
+export const metadata: Metadata = {
+  title: 'Terms of Service',
+  description: 'The terms that apply when working with onram AI.',
+  alternates: { canonical: '/terms' },
+  openGraph: { url: '/terms' },
+};
 
 export default function TermsOfService() {
   return (
-    <main className="min-h-screen py-20 px-4">
-      <div className="max-w-4xl mx-auto">
+    <>
+      <Navbar />
+      <main className="legal-page">
+      <div className="legal-content">
         <Link 
           href="/" 
           className="inline-block mb-8 text-primary hover:text-primary/80 transition-colors"
@@ -11,15 +23,16 @@ export default function TermsOfService() {
           ← Back to Home
         </Link>
         
-        <h1 className="text-4xl font-bold mb-8 text-gradient">Terms of Service</h1>
+        <p className="eyebrow">Working together</p>
+        <h1>Terms of Service</h1>
         
         <div className="prose prose-invert prose-primary max-w-none">
-          <p className="text-text-secondary mb-6">Last updated: {new Date().toLocaleDateString()}</p>
+          <p className="legal-date">Last updated: 2 September 2026</p>
           
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">1. Agreement to Terms</h2>
             <p className="text-text-secondary">
-              These Terms of Service are governed by the laws of Western Australia, Australia. By accessing or using onram AI's services, you agree to these terms and confirm that you have the legal capacity to enter into this agreement.
+              These Terms of Service are governed by the laws of Western Australia, Australia. By accessing or using onram AI&apos;s services, you agree to these terms and confirm that you have the legal capacity to enter into this agreement.
             </p>
           </section>
 
@@ -33,7 +46,7 @@ export default function TermsOfService() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">3. Services</h2>
             <p className="text-text-secondary mb-4">
-              We provide AI consulting and implementation services as described on our website. We will:
+              We provide AI consulting and AI training and workshops as described on our website. We will:
             </p>
             <ul className="list-disc pl-6 text-text-secondary">
               <li>Provide services with due care and skill</li>
@@ -86,6 +99,8 @@ export default function TermsOfService() {
           </section>
         </div>
       </div>
-    </main>
+      </main>
+      <Footer />
+    </>
   );
 }

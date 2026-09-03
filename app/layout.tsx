@@ -2,7 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://kalgoorlie.ai'),
+  metadataBase: new URL('https://www.onram.ai'),
   title: {
     default: 'onram AI | Make more possible',
     template: '%s | onram AI',
@@ -12,17 +12,18 @@ export const metadata: Metadata = {
   authors: [{ name: 'onram AI' }],
   creator: 'onram AI',
   publisher: 'onram AI',
+  manifest: '/site.webmanifest',
   icons: { icon: [{ url: '/icon.svg', type: 'image/svg+xml' }] },
   robots: { index: true, follow: true },
   openGraph: {
     type: 'website',
     locale: 'en_AU',
-    url: 'https://kalgoorlie.ai',
+    url: 'https://www.onram.ai',
     siteName: 'onram AI',
     title: 'onram AI | Make more possible',
     description: 'Practical AI consulting and hands-on AI training for business owners and management teams.',
   },
-  alternates: { canonical: 'https://kalgoorlie.ai' },
+  alternates: { canonical: 'https://www.onram.ai' },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -35,7 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           '@type': 'ProfessionalService',
           name: 'onram AI',
           alternateName: 'Kalgoorlie AI',
-          url: 'https://kalgoorlie.ai',
+          url: 'https://www.onram.ai',
           description: 'Practical AI consulting and AI training for business owners and management teams.',
           areaServed: { '@type': 'AdministrativeArea', name: 'Western Australia' },
           address: { '@type': 'PostalAddress', addressLocality: 'Kalgoorlie-Boulder', addressRegion: 'WA', addressCountry: 'AU' },

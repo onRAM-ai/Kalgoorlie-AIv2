@@ -1,6 +1,14 @@
+import type { Metadata } from 'next';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ContactForm from '../components/ContactForm';
+
+export const metadata: Metadata = {
+  title: 'Contact',
+  description: 'Talk with onram AI about practical AI consulting, training and workshops for your business.',
+  alternates: { canonical: '/contact' },
+  openGraph: { url: '/contact' },
+};
 
 export default function Contact() {
   return (

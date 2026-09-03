@@ -1,89 +1,46 @@
-# Kalgoorlie AI Website
+# onram AI website
 
-A modern, responsive website for Kalgoorlie AI built with Next.js, Tailwind CSS, and Supabase.
+The production website for [onram AI](https://www.onram.ai), built with the Next.js App Router, React, TypeScript and Tailwind CSS.
 
-## Features
+## Primary routes
 
-- Modern UI with responsive design
-- Newsletter subscription
-- Contact form
-- AI Readiness Assessment questionnaire
-- Animations and interactive elements
-- Dark/Light theme support
+- `/` — AI consulting and AI training/workshops
+- `/contact` — enquiry form
+- `/privacy` — privacy policy
+- `/terms` — terms of service
+- `/questionnaire` — permanent redirect to `/contact`
 
-## Tech Stack
+## Local development
 
-- Next.js 13 (App Router)
-- TypeScript
-- Tailwind CSS
-- Framer Motion
-- Supabase
-- SendGrid
+Use Node.js 20.9 or newer.
 
-## Prerequisites
-
-- Node.js 16.8 or later
-- npm or yarn
-- Supabase account
-- SendGrid account (for email functionality)
-
-## Environment Variables
-
-Create a `.env` file in the root directory with the following variables:
-
-```env
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
-SENDGRID_API_KEY=your_sendgrid_api_key
-FROM_EMAIL=your_from_email
-TO_EMAIL=your_to_email
-```
-
-## Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/kalgoorlie-ai.git
-cd kalgoorlie-ai
-```
-
-2. Install dependencies:
 ```bash
 npm install
-# or
-yarn install
-```
-
-3. Run the development server:
-```bash
 npm run dev
-# or
-yarn dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) to view the website.
+## Environment variables
 
-## Database Setup
+Copy `.env.example` to `.env.local` and configure:
 
-The project uses Supabase as the database. The migration files are located in the `supabase/migrations` directory.
+```env
+RESEND_API_KEY=your_resend_api_key
+FROM_EMAIL=your_verified_sender
+TO_EMAIL=your_destination_address
+```
 
-## Building for Production
+## Quality checks
 
 ```bash
+npm run lint
+npm run typecheck
 npm run build
-# or
-yarn build
 ```
+
+## Deployment
+
+The site deploys through Vercel from the connected GitHub repository. Production uses `https://www.onram.ai` as the canonical domain.
 
 ## License
 
-MIT License - See LICENSE file for details
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+MIT License — see `LICENSE`.
