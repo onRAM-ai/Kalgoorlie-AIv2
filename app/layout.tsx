@@ -1,5 +1,9 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import { GoogleAnalytics } from '@next/third-parties/google';
+
+const googleAnalyticsId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? 'G-J8RDEH64B5';
+const googleAnalyticsEnabled = process.env.NODE_ENV === 'production';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.onram.ai'),
@@ -39,9 +43,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           alternateName: 'Kalgoorlie AI',
           url: 'https://www.onram.ai',
           description: 'Practical AI consulting and AI training for owners and managers of service businesses.',
+          telephone: '+61 409 913 694',
           areaServed: { '@type': 'AdministrativeArea', name: 'Western Australia' },
-          address: { '@type': 'PostalAddress', addressLocality: 'Kalgoorlie-Boulder', addressRegion: 'WA', addressCountry: 'AU' },
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: '74 Egan Street',
+            addressLocality: 'Kalgoorlie',
+            addressRegion: 'WA',
+            postalCode: '6430',
+            addressCountry: 'AU',
+          },
         }) }} />
+        {googleAnalyticsEnabled ? <GoogleAnalytics gaId={googleAnalyticsId} /> : null}
       </body>
     </html>
   );

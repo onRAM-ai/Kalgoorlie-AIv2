@@ -27,7 +27,10 @@ Copy `.env.example` to `.env.local` and configure:
 RESEND_API_KEY=your_resend_api_key
 FROM_EMAIL=your_verified_sender
 TO_EMAIL=your_destination_address
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-J8RDEH64B5
 ```
+
+The production Analytics measurement ID defaults to `G-J8RDEH64B5`; the environment variable allows an explicit deployment override. Analytics is disabled during `next dev` to avoid polluting production reports.
 
 ## Quality checks
 
