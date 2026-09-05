@@ -1,6 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import { sendGAEvent } from '@next/third-parties/google';
+
+const googleAnalyticsEnabled = process.env.NODE_ENV === 'production';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({ name: '', email: '', company: '', service: '', message: '', website: '' });
@@ -17,6 +20,12 @@ export default function ContactForm() {
     try {
       const response = await fetch('/api/send-email', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) });
       if (!response.ok) throw new Error();
+      if (googleAnalyticsEnabled) {
+        sendGAEvent('event', 'generate_lead', {
+          form_name: 'contact',
+          service: formData.service,
+        });
+      }
       setStatus('sent');
     } catch {
       setStatus('error');

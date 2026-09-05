@@ -27,7 +27,7 @@ export default function PrivacyPolicy() {
         <h1>Privacy Policy</h1>
         
         <div className="prose prose-invert prose-primary max-w-none">
-          <p className="legal-date">Last updated: 2 September 2026</p>
+          <p className="legal-date">Last updated: 5 September 2026</p>
           
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>
@@ -72,35 +72,51 @@ export default function PrivacyPolicy() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">4. Data Security</h2>
+            <h2 className="text-2xl font-semibold mb-4">4. Website Analytics</h2>
+            <p className="text-text-secondary mb-4">
+              We use Google Analytics 4 to understand how visitors find and use our website. It measures information such as visitor and session numbers, pages viewed, website interactions, approximate location, browser and device information, and referral source. Google Analytics uses a first-party cookie to distinguish browsers and sessions.
+            </p>
+            <p className="text-text-secondary mb-4">
+              When the Analytics tag loads, your browser sends information including the page URL and IP address to Google. Google Analytics may use an IP address to provide the service and derive coarse location information, then discards the raw IP address after use. We do not send contact-form names, email addresses, business names, messages or other form contents to Google Analytics.
+            </p>
+            <p className="text-text-secondary">
+              You can prevent Analytics cookies through your browser settings. For more information, see{' '}
+              <a href="https://policies.google.com/technologies/partner-sites" className="text-primary hover:text-primary/80 transition-colors" rel="noopener noreferrer">
+                how Google uses information from sites that use its services
+              </a>.
+            </p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4">5. Data Security</h2>
             <p className="text-text-secondary">
               We take reasonable steps to protect personal information from misuse, interference, loss, unauthorised access, modification or disclosure. Website enquiries are processed using our hosting and email service providers and are accessible only to people who need the information to respond or deliver services.
             </p>
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">5. Access and Correction</h2>
+            <h2 className="text-2xl font-semibold mb-4">6. Access and Correction</h2>
             <p className="text-text-secondary">
               You have the right to access and correct your personal information. To request access or corrections, please contact our Privacy Officer. We will respond to your request within 30 days.
             </p>
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">6. Complaints</h2>
+            <h2 className="text-2xl font-semibold mb-4">7. Complaints</h2>
             <p className="text-text-secondary">
               If you believe we have breached the Australian Privacy Principles, you can lodge a complaint with us by contacting our Privacy Officer. We will investigate and respond within 30 days. If you&apos;re not satisfied with our response, you can contact the Office of the Australian Information Commissioner (OAIC).
             </p>
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">7. Overseas Disclosure</h2>
+            <h2 className="text-2xl font-semibold mb-4">8. Overseas Disclosure</h2>
             <p className="text-text-secondary">
               Some technology providers we use may process or store information outside Australia. Where applicable, we take reasonable steps to ensure personal information is handled consistently with Australian privacy requirements.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold mb-4">8. Contact Us</h2>
+            <h2 className="text-2xl font-semibold mb-4">9. Contact Us</h2>
             <p className="text-text-secondary">
               For privacy-related inquiries, please use our{' '}
               <Link href="/contact" className="text-primary hover:text-primary/80 transition-colors">
