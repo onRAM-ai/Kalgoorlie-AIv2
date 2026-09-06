@@ -5,7 +5,7 @@ const validPayload = {
   name: 'Boundary Test',
   email: 'boundary-test@example.com',
   company: 'Synthetic Test Co',
-  service: 'AI Consulting',
+  service: 'AI Business Systems',
   message: 'This synthetic payload must never become a real enquiry.',
   website: '',
 };

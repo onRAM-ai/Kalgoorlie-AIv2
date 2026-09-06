@@ -46,6 +46,9 @@ button, input, select, textarea { font: inherit; }
 .hero h1 { margin: 0; max-width: 760px; color: var(--paper-bright); font-size: clamp(4rem, 7.6vw, 7.5rem); line-height: .9; letter-spacing: -.065em; font-weight: 700; text-wrap: balance; }
 .hero-intro { max-width: 650px; margin: 2rem 0 0; color: #c6c6c2; font-size: clamp(1.1rem, 1.5vw, 1.35rem); line-height: 1.55; }
 .hero-actions { margin-top: 2.2rem; display: flex; flex-wrap: wrap; gap: .8rem; }
+.fit-line { max-width: 720px; margin: 1.6rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: .55rem 1.25rem; color: #aaa9a5; list-style: none; font-size: .78rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+.fit-line li { display: flex; align-items: center; gap: .55rem; }
+.fit-line li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--orange); }
 .button { min-height: 54px; display: inline-flex; align-items: center; justify-content: center; gap: .9rem; border: 1px solid transparent; padding: .95rem 1.3rem; font-size: .92rem; font-weight: 600; cursor: pointer; transition: transform .2s ease, background .2s ease, border-color .2s ease; }
 .button svg, .service-link svg { width: 20px; height: 20px; flex: 0 0 auto; transition: transform .2s ease; }
 .button:hover, .button:focus-visible { transform: translateY(-2px); }
@@ -84,6 +87,10 @@ button, input, select, textarea { font: inherit; }
 .outcome-list div { display: grid; grid-template-columns: 70px 1fr; gap: 1rem; padding: 1.4rem 0; border-bottom: 1px solid #c8c6c0; align-items: center; }
 .outcome-list span { color: var(--orange-ink); font-size: .75rem; font-weight: 700; }
 .outcome-list strong { font-size: 1.05rem; font-weight: 600; }
+.answer-grid { margin-top: 6rem; display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid #c8c6c0; border-left: 1px solid #c8c6c0; }
+.answer-grid article { min-height: 230px; padding: clamp(1.6rem, 3vw, 2.75rem); border-right: 1px solid #c8c6c0; border-bottom: 1px solid #c8c6c0; }
+.answer-grid h3 { max-width: 520px; margin: 0; font-size: clamp(1.45rem, 2.4vw, 2.25rem); line-height: 1.15; letter-spacing: -.035em; }
+.answer-grid p { max-width: 580px; margin: 1rem 0 0; color: #555552; font-size: 1rem; }
 
 .final-cta { padding: 8rem 0; background: var(--orange); color: var(--ink); }
 .final-cta .eyebrow { color: var(--ink); opacity: .72; }
@@ -126,6 +133,30 @@ button, input, select, textarea { font: inherit; }
 .form-success { min-height: 400px; display: grid; align-content: center; text-align: center; }
 .form-success span { color: var(--orange); font-size: 3rem; }
 .form-success h2 { font-size: 2rem; }
+
+.service-detail-page { background: var(--ink); color: var(--paper); }
+.detail-hero { min-height: 760px; padding: 108px 0 5rem; display: flex; align-items: center; background: radial-gradient(circle at 80% 35%, #2a1c13 0, var(--ink) 46%, #060708 100%); }
+.detail-hero-inner { padding-top: 5rem; }
+.detail-hero h1 { max-width: 1080px; margin: 0; color: var(--paper-bright); font-size: clamp(3.8rem, 7.2vw, 7rem); line-height: .94; letter-spacing: -.06em; font-weight: 650; text-wrap: balance; }
+.detail-hero p:not(.eyebrow) { max-width: 790px; margin: 2rem 0; color: #c6c6c2; font-size: clamp(1.08rem, 1.5vw, 1.32rem); }
+.detail-section { padding: 8rem 0; }
+.detail-section-light { background: var(--paper-bright); color: var(--ink); }
+.detail-section-dark { background: var(--ink-soft); color: var(--paper); }
+.detail-section-orange { background: var(--orange); color: var(--ink); }
+.detail-section-light .eyebrow { color: var(--orange-ink); }
+.detail-section-orange .eyebrow { color: var(--ink); opacity: .72; }
+.detail-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 8vw; align-items: start; }
+.detail-section h2 { max-width: 900px; margin: 0; font-size: clamp(2.6rem, 5vw, 5rem); line-height: 1.02; letter-spacing: -.05em; font-weight: 600; text-wrap: balance; }
+.detail-list { border-top: 1px solid #c8c6c0; }
+.detail-list div { display: grid; grid-template-columns: 58px 1fr; gap: 1rem; padding: 1.4rem 0; border-bottom: 1px solid #c8c6c0; }
+.detail-list span { color: var(--orange-ink); font-size: .74rem; font-weight: 700; }
+.detail-list p { margin: 0; color: #454542; font-size: 1.05rem; }
+.detail-card-grid { margin-top: 4rem; display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.detail-card-grid article { min-height: 240px; padding: clamp(1.7rem, 3vw, 3rem); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.detail-card-grid h3 { margin: 0; font-size: clamp(1.5rem, 2.7vw, 2.5rem); line-height: 1.12; letter-spacing: -.04em; }
+.detail-card-grid p { max-width: 560px; margin: 1rem 0 0; color: #b8b8b4; }
+.detail-lead { margin: 0; font-size: clamp(1.4rem, 2.5vw, 2.2rem); line-height: 1.3; letter-spacing: -.03em; }
+.detail-section-orange .detail-grid > div:last-child > p:not(.detail-lead) { max-width: 700px; margin: 1.5rem 0 2rem; font-size: 1.08rem; }
 
 .legal-page { min-height: 100vh; padding: 180px 24px 7rem; background: var(--ink); color: var(--paper); }
 .legal-content { width: min(760px, 100%); margin-inline: auto; }
@@ -171,6 +202,10 @@ button, input, select, textarea { font: inherit; }
   .hero-ring { width: 94vw; top: 0; left: 50%; transform: translateX(-50%); border-width: clamp(42px, 10vw, 76px); }
   .services, .possibility, .final-cta { padding: 5.5rem 0; }
   .service-grid, .possibility-grid, .contact-grid { grid-template-columns: 1fr; }
+  .detail-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .detail-hero { min-height: 680px; padding-top: 88px; }
+  .detail-section { padding: 5.5rem 0; }
+  .answer-grid { grid-template-columns: 1fr; }
   .service-card { min-height: 430px; }
   .possibility-grid { gap: 2rem; }
   .possibility-copy { padding-top: 0; }
@@ -181,12 +216,14 @@ button, input, select, textarea { font: inherit; }
 @media (max-width: 560px) {
   .shell { width: calc(100% - 32px); }
   .hero-actions { flex-direction: column; align-items: stretch; }
+  .fit-line { flex-direction: column; }
   .button { width: 100%; }
   .hero-intro { font-size: 1.05rem; }
   .hero-visual { height: 92vw; }
   .service-card { min-height: 450px; padding: 1.7rem; }
   .service-card h3 { font-size: 2.5rem; }
   .field-row { grid-template-columns: 1fr; }
+  .detail-card-grid { grid-template-columns: 1fr; }
   .contact-form-card { margin-inline: -16px; }
   .footer-main, .footer-bottom { flex-direction: column; }
   .footer-links { margin-top: 1rem; }

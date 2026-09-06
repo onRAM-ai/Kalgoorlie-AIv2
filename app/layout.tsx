@@ -8,11 +8,11 @@ const googleAnalyticsEnabled = process.env.NODE_ENV === 'production';
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.onram.ai'),
   title: {
-    default: 'onram AI | Make more possible',
+    default: 'AI Business Systems for Service Businesses | onram AI',
     template: '%s | onram AI',
   },
-  description: 'Practical AI consulting and hands-on training for owners and managers of service businesses. Formerly Kalgoorlie AI.',
-  keywords: ['AI consulting', 'AI training', 'AI workshops', 'AI for management', 'Kalgoorlie', 'Western Australia'],
+  description: 'Onram helps owner-led service businesses reduce admin and owner dependence by connecting Microsoft 365, ChatGPT and the tools they already use.',
+  keywords: ['AI business systems', 'AI operations consultant', 'service business systems', 'workflow automation', 'AI adoption', 'Microsoft 365 consulting', 'ChatGPT consulting', 'AI for management', 'Kalgoorlie', 'Western Australia'],
   authors: [{ name: 'onram AI' }],
   creator: 'onram AI',
   publisher: 'onram AI',
@@ -24,10 +24,69 @@ export const metadata: Metadata = {
     locale: 'en_AU',
     url: 'https://www.onram.ai',
     siteName: 'onram AI',
-    title: 'onram AI | Make more possible',
-    description: 'Practical AI consulting and hands-on training for owners and managers of service businesses.',
+    title: 'Stop being the system | onram AI',
+    description: 'Practical AI business systems for owner-led service businesses that already have the tools but still depend on the owner to hold everything together.',
+    images: [{ url: '/brand/management-workshop.png', alt: 'Onram AI helps service-business owners turn existing tools into practical management systems.' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Stop being the system | onram AI',
+    description: 'Turn Microsoft 365, ChatGPT and the tools you already own into a practical management system.',
+    images: ['/brand/management-workshop.png'],
   },
   alternates: { canonical: 'https://www.onram.ai' },
+};
+
+const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: 'onram AI',
+    alternateName: 'Kalgoorlie AI',
+    url: 'https://www.onram.ai',
+    logo: 'https://www.onram.ai/brand/onram-logo-dark.svg',
+    image: 'https://www.onram.ai/brand/management-workshop.png',
+    description: 'A Kalgoorlie-based AI consulting and training business helping owner-led service businesses use Microsoft 365, ChatGPT and existing software to organise management work, reduce administration and rely less on the owner.',
+    telephone: '+61 409 913 694',
+    serviceType: ['AI business systems consulting', 'Workflow automation consulting', 'AI adoption and training', 'Microsoft 365 and ChatGPT workflow consulting'],
+    audience: {
+      '@type': 'BusinessAudience',
+      audienceType: 'Owners and managers of established service businesses',
+    },
+    areaServed: [
+      { '@type': 'City', name: 'Kalgoorlie-Boulder' },
+      { '@type': 'AdministrativeArea', name: 'Western Australia' },
+    ],
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: '74 Egan Street',
+      addressLocality: 'Kalgoorlie',
+      addressRegion: 'WA',
+      postalCode: '6430',
+      addressCountry: 'AU',
+    },
+    sameAs: ['https://au.linkedin.com/company/kalgoorlie-ai'],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'AI business systems and adoption services',
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'AI Business Systems Consulting',
+            description: 'Map a management bottleneck and implement a practical workflow using Microsoft 365, ChatGPT and the systems already in the business.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Practical AI Adoption',
+            description: 'Role-specific training and follow-through built around a team’s real work, approved tools and responsibilities.',
+          },
+        },
+      ],
+    },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -36,24 +95,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <a className="skip-link" href="#main-content">Skip to main content</a>
         {children}
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'ProfessionalService',
-          name: 'onram AI',
-          alternateName: 'Kalgoorlie AI',
-          url: 'https://www.onram.ai',
-          description: 'Practical AI consulting and AI training for owners and managers of service businesses.',
-          telephone: '+61 409 913 694',
-          areaServed: { '@type': 'AdministrativeArea', name: 'Western Australia' },
-          address: {
-            '@type': 'PostalAddress',
-            streetAddress: '74 Egan Street',
-            addressLocality: 'Kalgoorlie',
-            addressRegion: 'WA',
-            postalCode: '6430',
-            addressCountry: 'AU',
-          },
-        }) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} />
         {googleAnalyticsEnabled ? <GoogleAnalytics gaId={googleAnalyticsId} /> : null}
       </body>
     </html>

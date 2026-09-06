@@ -4,7 +4,9 @@ The production website for [onram AI](https://www.onram.ai), built with the Next
 
 ## Primary routes
 
-- `/` — AI consulting and AI training/workshops
+- `/` — positioning and overview for owner-led service businesses
+- `/business-systems` — AI business systems consulting
+- `/ai-adoption` — practical AI adoption and training
 - `/contact` — enquiry form
 - `/privacy` — privacy policy
 - `/terms` — terms of service

@@ -49,11 +49,12 @@ export default function ContactForm() {
       <label>How can we help?
         <select name="service" value={formData.service} onChange={change} required>
           <option value="">Choose one</option>
-          <option>AI Consulting</option>
-          <option>AI Training &amp; Workshops</option>
+          <option>AI Business Systems</option>
+          <option>Practical AI Adoption</option>
+          <option>I’m not sure yet</option>
         </select>
       </label>
-      <label>What would you like to improve?<textarea name="message" value={formData.message} onChange={change} rows={5} required /></label>
+      <label>What keeps coming back to you?<textarea name="message" value={formData.message} onChange={change} rows={5} required /></label>
       {status === 'error' && <p className="form-error" role="alert">Your message couldn’t be sent. Please wait a moment and try again.</p>}
       <button className="button button-primary" type="submit" disabled={status === 'sending'} aria-live="polite">{status === 'sending' ? 'Sending…' : 'Send enquiry'}</button>
       <p className="form-privacy">We’ll only use these details to respond to your enquiry. See our <a href="/privacy">privacy policy</a>.</p>
