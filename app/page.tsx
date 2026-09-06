@@ -9,6 +9,33 @@ const Arrow = () => (
   </svg>
 );
 
+const faqStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How can a service-business owner stop being the bottleneck?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Make recurring decisions, responsibilities and escalation rules visible, then move routine work out of the owner’s head and into a practical management workflow the team can use.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'How can a service business reduce administration without another hire?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Map the repetitive work first, then simplify and automate the right handoffs using the systems the business already pays for.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'How can meeting notes become accountable actions?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Connect meeting notes to assigned actions, due dates and follow-ups so commitments remain visible after the conversation.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'How can a business make AI adoption stick after training?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Train people on their actual work, define safe-use rules and provide management follow-through until the workflow becomes part of normal operations.' },
+    },
+  ],
+};
+
 export default function Home() {
   return (
     <>
@@ -124,6 +151,7 @@ export default function Home() {
           </div>
         </section>
       </main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData).replace(/</g, '\\u003c') }} />
       <Footer />
     </>
   );
