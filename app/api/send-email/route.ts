@@ -13,7 +13,14 @@ const contactSchema = z.object({
   name: z.string().trim().min(1).max(100),
   email: z.string().trim().email().max(254),
   company: z.string().trim().max(150).optional().default(''),
-  service: z.enum(['AI Consulting', 'AI Training & Workshops']),
+  service: z.enum([
+    'AI Business Systems',
+    'Practical AI Adoption',
+    'I’m not sure yet',
+    // Keep legacy values valid for cached versions of the previous form.
+    'AI Consulting',
+    'AI Training & Workshops',
+  ]),
   message: z.string().trim().min(1).max(4_000),
   website: z.string().max(200).optional().default(''),
 }).strict();

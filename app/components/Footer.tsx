@@ -10,9 +10,9 @@ export default function Footer() {
           <span className="footer-former">Formerly Kalgoorlie AI</span>
         </div>
         <div className="footer-links">
-          <Link href="/#consulting">Consulting</Link>
-          <Link href="/#training">Training</Link>
-          <Link href="/#about">About</Link>
+          <Link href="/business-systems">Business systems</Link>
+          <Link href="/ai-adoption">AI adoption</Link>
+          <Link href="/#about">How it works</Link>
           <Link href="/privacy">Privacy</Link>
           <Link href="/terms">Terms</Link>
         </div>

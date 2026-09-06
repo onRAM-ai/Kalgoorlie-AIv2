@@ -5,9 +5,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const links = [
-  { label: 'Consulting', href: '/#consulting' },
-  { label: 'Training', href: '/#training' },
-  { label: 'About', href: '/#about' },
+  { label: 'Business systems', href: '/business-systems' },
+  { label: 'AI adoption', href: '/ai-adoption' },
+  { label: 'How it works', href: '/#about' },
 ];
 
 export default function Navbar() {
@@ -34,7 +34,7 @@ export default function Navbar() {
         <div className="former-tag">Formerly Kalgoorlie AI</div>
         <nav id={navigationId} className={open ? 'nav-links nav-open' : 'nav-links'} aria-label="Main navigation">
           {links.map((link) => <Link key={link.label} href={link.href} onClick={() => setOpen(false)}>{link.label}</Link>)}
-          <Link className="nav-cta" href="/contact" onClick={() => setOpen(false)}>Find your AI opportunity</Link>
+          <Link className="nav-cta" href="/contact" onClick={() => setOpen(false)}>Find your biggest bottleneck</Link>
         </nav>
         <button className="menu-button" type="button" onClick={() => setOpen(!open)} aria-controls={navigationId} aria-expanded={open} aria-label={open ? 'Close navigation' : 'Open navigation'}>
           <span /><span />
